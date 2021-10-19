@@ -1,0 +1,8 @@
+namespace: api
+
+include:
+    - modules/v1
+paths:
+    log: console/runtime/logs
+settings:
+    colors: true
