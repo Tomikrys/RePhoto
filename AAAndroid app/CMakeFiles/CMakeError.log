@@ -1,0 +1,8 @@
+Determining if the C compiler works failed with the following output:
+Change Dir: D:/Refotografing-native/CMakeFiles/CMakeTmp
+
+Run Build Command:"nmake" "/NOLOGO" "cmTC_5bda4\fast"
+
+Generator: execution of make failed. Make command was: "nmake" "/NOLOGO" "cmTC_5bda4\fast"
+
+
