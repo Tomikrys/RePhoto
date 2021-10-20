@@ -7,3 +7,4 @@ Obsah adresáře src přesunout na hosting zavolat následující příkazy:
 
 je potřeba mít nainstalovaný Python 2.7, PHP 7.1, MariaDB 10.2, Elasticsearch 6.2 a případná rozšíření požadovaná při spuštění: composer install
 
+yii serve --docroot="frontend/web/"
