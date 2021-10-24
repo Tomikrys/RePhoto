@@ -21,7 +21,7 @@ use yii\helpers\Url;
                     </li>
 
 
-                    <? if ($this->h1 != null): ?>
+                    <?php if ($this->h1 != null): ?>
                         <li>
                             <i class="material-icons">chevron_right</i>
                         </li>
@@ -32,7 +32,7 @@ use yii\helpers\Url;
                                 <span itemprop="name"><?= $this->h1 ?></span></a>
                             <meta itemprop="position" content="2"/>
                         </li>
-                    <? endif; ?>
+                    <?php endif; ?>
                 </ul>
 
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
@@ -59,17 +59,17 @@ use yii\helpers\Url;
                         </a>
                     </li>
 
-                    <? if (!Yii::$app->user->isGuest): ?>
+                    <?php if (!Yii::$app->user->isGuest): ?>
                         <li>
                             <a class="login-btn"
                                href="<?= Url::to(['/user/profile']) ?>"><?= Yii::t('app/menu', 'My profile') ?></a>
                         </li>
-                    <? else: ?>
+                    <?php else: ?>
                         <li>
                             <a class="waves-effect waves-light login-btn"
                                href="<?= Url::to(['/user/login']) ?>"><?= Yii::t('app/menu', 'Log in') ?></a>
                         </li>
-                    <? endif; ?>
+                    <?php endif; ?>
                 </ul>
             </div>
         </nav>
