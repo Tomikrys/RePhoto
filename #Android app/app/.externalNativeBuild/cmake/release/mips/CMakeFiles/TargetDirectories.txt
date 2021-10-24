@@ -1,0 +1,3 @@
+D:/Refotografing-native/app/.externalNativeBuild/cmake/release/mips/CMakeFiles/native-cpp.dir
+D:/Refotografing-native/app/.externalNativeBuild/cmake/release/mips/CMakeFiles/edit_cache.dir
+D:/Refotografing-native/app/.externalNativeBuild/cmake/release/mips/CMakeFiles/rebuild_cache.dir

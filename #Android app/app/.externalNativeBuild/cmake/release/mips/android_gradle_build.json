@@ -1,0 +1,38 @@
+
+{
+	"buildFiles" : [ "D:/Refotografing-native/app/CMakeLists.txt" ],
+	"cleanCommands" : 
+	[
+		"C:\\Users\\acervenka2\\AppData\\Local\\Android\\Sdk\\cmake\\3.6.3155560\\bin\\cmake.exe --build D:\\Refotografing-native\\app\\.externalNativeBuild\\cmake\\release\\mips --target clean"
+	],
+	"cppFileExtensions" : [ "cpp" ],
+	"libraries" : 
+	{
+		"native-cpp-Release-mips" : 
+		{
+			"abi" : "mips",
+			"artifactName" : "native-cpp",
+			"buildCommand" : "C:\\Users\\acervenka2\\AppData\\Local\\Android\\Sdk\\cmake\\3.6.3155560\\bin\\cmake.exe --build D:\\Refotografing-native\\app\\.externalNativeBuild\\cmake\\release\\mips --target native-cpp",
+			"buildType" : "release",
+			"files" : 
+			[
+				
+				{
+					"flags" : "  --target=mipsel-none-linux-android --gcc-toolchain=C:/android-ndk-r14/toolchains/mips64el-linux-android-4.9/prebuilt/windows-x86_64 --sysroot=C:/android-ndk-r14/platforms/android-15/arch-mips  -Dnative_cpp_EXPORTS -isystem C:\\android-ndk-r14\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include -isystem C:\\android-ndk-r14\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\libs\\mips\\include -isystem C:\\android-ndk-r14\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include\\backward  -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mips32 -Wa,--noexecstack -Wformat -Werror=format-security  -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mips32 -Wa,--noexecstack -Wformat -Werror=format-security  -frtti -fexceptions -O2 -DNDEBUG -O2 -DNDEBUG  -fPIC    -c ",
+					"src" : "D:/Refotografing-native/app/src/main/jni/com_delaroystudios_camera_OpenCVNative.cpp",
+					"workingDirectory" : "D:/Refotografing-native/app/.externalNativeBuild/cmake/release/mips"
+				}
+			],
+			"output" : "D:/Refotografing-native/app/build/intermediates/cmake/release/obj/mips/libnative-cpp.so",
+			"toolchain" : "3815642777"
+		}
+	},
+	"toolchains" : 
+	{
+		"3815642777" : 
+		{
+			"cCompilerExecutable" : "C:/android-ndk-r14/toolchains/llvm/prebuilt/windows-x86_64/bin/clang.exe",
+			"cppCompilerExecutable" : "C:/android-ndk-r14/toolchains/llvm/prebuilt/windows-x86_64/bin/clang++.exe"
+		}
+	}
+}
