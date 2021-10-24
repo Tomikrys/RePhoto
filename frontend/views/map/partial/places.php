@@ -5,7 +5,7 @@
 /* @var $page integer */
 ?>
 
-<? if (empty($places)): ?>
+<?php if (empty($places)): ?>
     <? if ($page == 1): ?>
         <div class="col m12 no-result">
             <i class="material-icons">place</i>
@@ -14,8 +14,8 @@
         </div>
     <? endif; ?>
 
-<? else: ?>
-    <? foreach ($places as $place): ?>
+<?php else: ?>
+    <?php foreach ($places as $place): ?>
 
         <div class="card"
              data-lat="<?= $place['latitude'] ?>"
@@ -38,10 +38,10 @@
             </div>
         </div>
 
-    <? endforeach; ?>
-<? endif; ?>
+    <?php endforeach; ?>
+<?php endif; ?>
 
-<? if (!$lastFetch): ?>
+<?php if (!$lastFetch): ?>
     <div class="actions text-center">
         <?= \yii\helpers\Html::button('load more', [
             'id' => 'btn-next-preview',
@@ -51,7 +51,7 @@
             ],
         ]) ?>
     </div>
-<? endif; ?>
+<?php endif; ?>
 
 <? $this->registerJs(<<<JS
     // TODO refactor events to places
