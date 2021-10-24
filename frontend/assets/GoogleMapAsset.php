@@ -15,7 +15,7 @@ class GoogleMapAsset extends AssetBundle
     ];
     public $js = [
         'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js',
-        'https://maps.googleapis.com/maps/api/js?key=AIzaSyAxwWfbKcXiMKNmJLtWpdYtu5ruriw_YS0&callback=initMap&libraries=places',
+        'https://maps.googleapis.com/maps/api/js?key=AIzaSyAi5sxqB4yHWLHRGEtRz6eaesWVQo5AOxE&callback=initMap&libraries=places',
     ];
     public $depends = [
         'frontend\assets\AppAsset',
