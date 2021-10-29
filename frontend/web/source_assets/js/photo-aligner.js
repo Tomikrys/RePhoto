@@ -21,7 +21,7 @@ function PhotoAligner(points) {
 
     this.deletePointsBtn = document.getElementById('delete-points-btn');;
 
-    this.points = points;
+    this.points = points || [];
     this.activePointIndex = 0;
     this.turn = this.TURN_BOTH;
 
