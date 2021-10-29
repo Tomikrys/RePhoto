@@ -1,6 +1,7 @@
 import numpy as np
 import cv2
 import sys
+import os
 #from matplotlib import pyplot as plt
 
 MIN_MATCH_COUNT = 10
@@ -54,7 +55,9 @@ if len(good)>MIN_MATCH_COUNT:
     matchesMask = mask.ravel().tolist()
 
     im_out = cv2.warpPerspective(img2, M, (img1.shape[1],img1.shape[0]))
-    cv2.imwrite(sys.argv[3], im_out);
+    if not os.path.exists(os.path.dirname(sys.argv[3])):
+        os.mkdir(os.path.dirname(sys.argv[3]))
+    cv2.imwrite(sys.argv[3], im_out)
     print('true')
 else:
     print('false')
