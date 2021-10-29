@@ -125,11 +125,11 @@ class PlaceController extends FrontendController
                 fwrite($temp, json_encode($points));
                 $tmpPath = stream_get_meta_data($temp)['uri'];
                 // TODO define python path in config
-                $command = "/Users/martinsikora/.virtualenvs/rephoto/bin/python $root/homography-transformation-points.py '$mainImgPath' '$transformingImgPath' '$root$transformedImagePath' '$tmpPath' 2>&1";
+                $command = "$root/python27/python.exe $root/homography-transformation-points.py $mainImgPath $transformingImgPath $root$transformedImagePath $tmpPath 2>&1";
 
             } else {
                 // TODO define python path in config
-                $command = "/Users/martinsikora/.virtualenvs/rephoto/bin/python $root/homography-transformation.py '$mainImgPath' '$transformingImgPath' '$root$transformedImagePath' 2>&1";
+                $command = "$root/python27/python.exe $root/homography-transformation.py $mainImgPath $transformingImgPath $root$transformedImagePath 2>&1";
             }
 
             $output = exec($command);
