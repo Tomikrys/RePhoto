@@ -128,8 +128,8 @@ return [
             'class' => 'himiklab\yii2\recaptcha\ReCaptcha',
 
             // Define key in main-local.php
-            // 'siteKey' => '',
-            // 'secret' => '',
+            'siteKey' => '6LfclPgcAAAAANxFsjrXesH0uZBGnG1736YM1xkx',
+            'secret' => '6LfclPgcAAAAAF2vTuhjLYWxFVZV-VJv4QfMysZS',
         ],
         'elasticsearch' => [
             'class' => 'yii\elasticsearch\Connection',
