@@ -609,6 +609,31 @@ Canvas.prototype.addObject = function (object) {
     };
 };
 
+// async/promise function for retrieving image dimensions for a URL
+// from https://stackoverflow.com/questions/8903854/check-image-width-and-height-before-upload-with-javascript
+function imageSize(url) {
+    const img = document.createElement("img");
+
+    const promise = new Promise((resolve, reject) => {
+      img.onload = () => {
+        // Natural size is the actual image size regardless of rendering.
+        // The 'normal' `width`/`height` are for the **rendered** size.
+        const width  = img.naturalWidth;
+        const height = img.naturalHeight; 
+
+        // Resolve promise with the width and height
+        resolve({width, height});
+      };
+
+      // Reject promise on error
+      img.onerror = reject;
+    });
+
+    // Setting the source makes it start downloading and eventually call `onload`
+    img.src = url;
+
+    return promise;
+}
 
 function CanvasImage(src) {
     this.id = null;
@@ -618,12 +643,22 @@ function CanvasImage(src) {
     this.image = new Image();
     this.image.src = src;
     this.opacity = 1;
+    
+    (async() => {
+        const imageDimensions = await imageSize(src);
+        console.log(this.width);
+        console.log(imageDimensions.width)
+        if (this.width === undefined || this.width < imageDimensions.width) {
+            this.width = imageDimensions.width;
+        }
+        if (this.height === undefined || this.height < imageDimensions.height) {
+            this.height = imageDimensions.height;
+        }
+        this.center = {x: this.width / 2, y: this.height / 2};
+    })(this);
 
     this.rotation = 0;
 
-    this.width = this.image.width;
-    this.height = this.image.height;
-    this.center = {x: this.width / 2, y: this.height / 2};
 
     this.moving = false;
     this.rotating = false;
