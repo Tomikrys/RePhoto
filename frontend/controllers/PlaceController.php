@@ -218,8 +218,8 @@ class PlaceController extends FrontendController
 
         $post = \Yii::$app->request->post();
         if ($photo->load($post)) {
-            $photo->aligned = true;
-            $photo->visible = true;
+            $photo->aligned = 1;
+            $photo->visible = 1;
 
             $trans = \Yii::$app->db->beginTransaction();
 
