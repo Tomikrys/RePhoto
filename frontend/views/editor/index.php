@@ -187,23 +187,24 @@ CSS
     <div id="editor">
         <div class="editor-top-toolbar">
             <ul class="tools">
-                <li><a href="#" class="undo-btn disabled"><i class="material-icons">undo</i></a></li>
-                <li><a href="#" class="redo-btn disabled"><i class="material-icons">redo</i></a></li>
+                <li><a href="#" class="undo-btn disabled" title="undo"><i class="material-icons">undo</i></a></li>
+                <li><a href="#" class="redo-btn disabled" title="redo"><i class="material-icons">redo</i></a></li>
                 <li><span class="divider"></span></li>
             </ul>
             <ul class="tools">
-                <li><a href="#" class="zoom-out-btn"><i class="material-icons">zoom_out</i></a></li>
-                <li><input class="zoom" name="zoom" value="100%"></li>
-                <li><a href="#" class="zoom-in-btn"><i class="material-icons">zoom_in</i></a></li>
+                <li><a href="#" class="zoom-out-btn" title="zoom out"><i class="material-icons">zoom_out</i></a></li>
+                <li><input class="zoom" name="zoom" value="100%" title="zoom"></li>
+                <li><a href="#" class="zoom-in-btn" title="zoom in"><i class="material-icons">zoom_in</i></a></li>
                 <li><span class="divider"></span></li>
             </ul>
             <ul class="tools active-tools">
-                <li><i class="material-icons move-btn active">open_with</i></li>
-                <li><i class="material-icons resize-btn">photo_size_select_large</i></li>
-                <li><i class="material-icons rotate-btn">rotate_left</i></li>
-                <li><i class="material-icons path-btn">format_shapes</i></li>
-                <li><i class="material-icons download-image">file_download</i></li>
-                <li><i class="material-icons save-image">save</i></li>
+                <!-- TODO rename titles -->
+                <li><i class="material-icons move-btn active" title="open with">open_with</i></li>
+                <li><i class="material-icons resize-btn" title="photo size select large">photo_size_select_large</i></li>
+                <li><i class="material-icons rotate-btn" title="rotate left">rotate_left</i></li>
+                <li><i class="material-icons path-btn" title="format shapes">format_shapes</i></li>
+                <li><i class="material-icons download-image" title="file download">file_download</i></li>
+                <li><i class="material-icons save-image" title="save">save</i></li>
             </ul>
         </div>
         <div class="editor-main">
