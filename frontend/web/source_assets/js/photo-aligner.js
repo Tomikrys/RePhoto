@@ -89,9 +89,18 @@ PhotoAligner.prototype.movePoint = function (pointsSm, pointsLg, index) {
         var pos = this.getMouseNewImagePosition();
     }
 
-    this.points[index].new_point = pos;
+    if (this.points[index] !== null) {
+        console.log(this.points[index])
+        console.log(pos)
+        console.log(this.getMouseOldImagePosition())
+        console.log(this.getMouseNewImagePosition())
+        if (pointsSm.id == "old-points-sm") {
+            this.points[index].old_point = pos;
+        } else {
+            this.points[index].new_point = pos;
+        }
 
-    var point = pointsSm.childNodes[index];
+        var point = pointsSm.childNodes[index];
 
     point.style.left = pos.x1 + "px";
     point.style.top = pos.y1 + "px";
