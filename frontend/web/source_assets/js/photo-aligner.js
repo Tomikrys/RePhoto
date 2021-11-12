@@ -42,21 +42,41 @@ function PhotoAligner(points) {
     this.movingPointElement = null;
     this.movingPointIndex = null;
 
-    this.pointLabel = 1;
+    this.pointLabel = 0;
+    this.last_click_point = null;
+    this.last_click_time = null;
+
+    this.skip_mouseup = false;
 
     $(document).on("mousedown", '.point', function (e) {
         e.preventDefault();
+        const d = new Date();
+        let now = d.getTime();
+        console.log(thisObject.last_click_point);
+        console.log(thisObject.last_click_time);
+        if (e.shiftKey || (thisObject.movingPointElement === thisObject.last_click_point && now < thisObject.last_click_time + 500)) {
+            let position_in_array = thisObject.movingPointElement[0].innerText;
+            console.log("removing point " + position_in_array);
+            console.log(thisObject.points);
+            console.log(position_in_array);
+            thisObject.invalidatePoint(position_in_array);
+            this.skip_mouseup = true;
+        } else {
+            thisObject.movingPointElement = $(this);
+            thisObject.movingPointIndex = thisObject.movingPointElement.prevAll().length;
+            thisObject.movingPointElement.parents('.magnifier-wrapper').find('.magnifier-glass')[0].style.visibility = 'visible';
+            thisObject.movingPointElement.hide();
 
-        thisObject.movingPointElement = $(this);
-        thisObject.movingPointIndex = thisObject.movingPointElement.prevAll().length;
-        thisObject.movingPointElement.parents('.magnifier-wrapper').find('.magnifier-glass')[0].style.visibility = 'visible';
-        thisObject.movingPointElement.hide();
-
-        thisObject.movingPointElement.parents('.magnifier-wrapper').find('.points-lg')[0].childNodes[thisObject.movingPointIndex].style.visibility = 'hidden';
+            thisObject.movingPointElement.parents('.magnifier-wrapper').find('.points-lg')[0].childNodes[thisObject.movingPointIndex].style.visibility = 'hidden';
+            thisObject.last_click_point = thisObject.movingPointElement;
+            thisObject.last_click_time = now;
+        }
+        console.log(thisObject.points);
     });
 
+
     $(document).on("mouseup", function (e) {
-        if (thisObject.movingPointIndex !== null) {
+        if (thisObject.movingPointIndex !== null && this.skip_mouseup !== true) {
             thisObject.movingPointElement.parents('.magnifier-wrapper').find('.magnifier-glass')[0].style.visibility = 'hidden';
             thisObject.movingPointElement.show();
 
@@ -102,12 +122,14 @@ PhotoAligner.prototype.movePoint = function (pointsSm, pointsLg, index) {
 
         var point = pointsSm.childNodes[index];
 
-    point.style.left = pos.x1 + "px";
-    point.style.top = pos.y1 + "px";
+        point.style.left = pos.x1 + "px";
+        point.style.top = pos.y1 + "px";
 
-    var point = pointsLg.childNodes[index];
-    point.style.left = pos.x2 + "px";
-    point.style.top = pos.y2 + "px";
+        var point = pointsLg.childNodes[index];
+        point.style.left = pos.x2 + "px";
+        point.style.top = pos.y2 + "px";
+    }
+    console.log(this.points);
 }
 
 PhotoAligner.prototype.getMouseImagePosition = function (element) {
@@ -117,7 +139,7 @@ PhotoAligner.prototype.getMouseImagePosition = function (element) {
     var x2 = element.dataset.leftlg;
     var y2 = element.dataset.toplg;
 
-    return {x1: x1, y1: y1, x2: x2, y2: y2};
+    return { x1: x1, y1: y1, x2: x2, y2: y2 };
 }
 
 PhotoAligner.prototype.getMouseOldImagePosition = function (e) {
@@ -148,12 +170,14 @@ PhotoAligner.prototype.addOldPoint = function (e) {
         var point = this.getEmptyPoint();
         point.old_point = pos;
         this.points.push(point);
+        console.log("old [" + point.old_point.x1 + "-" + point.old_point.x2 + ", " + point.old_point.y1 + "-" + point.old_point.y2 + "]");
         this.pointLabel++;
         this.changeActivePoint(this.points.length - 1);
 
     } else {
         this.points[this.activePointIndex].old_point = pos;
         var point = this.getActivePoint();
+        console.log("old [" + point.old_point.x1 + "-" + point.old_point.x2 + ", " + point.old_point.y1 + "-" + point.old_point.y2 + "]");
         this.changeActivePoint(null);
     }
 
@@ -176,12 +200,14 @@ PhotoAligner.prototype.addNewPoint = function (e) {
         var point = this.getEmptyPoint();
         point.new_point = pos;
         this.points.push(point);
+        console.log("new [" + point.new_point.x1 + "-" + point.new_point.x2 + ", " + point.new_point.y1 + "-" + point.new_point.y2 + "]");
         this.pointLabel++;
         this.changeActivePoint(this.points.length - 1);
 
     } else {
         this.points[this.activePointIndex].new_point = pos;
         var point = this.getActivePoint();
+        console.log("new [" + point.new_point.x1 + "-" + point.new_point.x2 + ", " + point.new_point.y1 + "-" + point.new_point.y2 + "]");
         this.changeActivePoint(null);
     }
 
@@ -198,6 +224,7 @@ PhotoAligner.prototype.drawPoint = function (old, point, color) {
     var newSubPoint = document.createElement('div');
     newPoint.classList.add('point');
     newPoint.classList.add('point-sm');
+    newPoint.classList.add('point-id-' + this.pointLabel);
     newPoint.style.left = point.x1 + "px";
     newPoint.style.top = point.y1 + "px";
     newSubPoint.style.borderColor = color;
@@ -217,6 +244,7 @@ PhotoAligner.prototype.drawPoint = function (old, point, color) {
     var newSubPoint = document.createElement('div');
     newPoint.classList.add('point');
     newPoint.classList.add('point-lg');
+    newPoint.classList.add('point-id-' + this.pointLabel);
     newPoint.style.left = point.x2 + "px";
     newPoint.style.top = point.y2 + "px";
     newSubPoint.style.borderColor = color;
@@ -244,6 +272,20 @@ PhotoAligner.prototype.deletePoint = function (index) {
     this.points = this.points.splice(index, 1);
 };
 
+PhotoAligner.prototype.invalidatePoint = function (index) {
+    console.log(this.points[index]);
+    this.points[index] = null;
+    let drawed_points = document.getElementsByClassName('point-id-' + index);
+    console.log(drawed_points);
+    for (i = drawed_points.length-1; i >= 0 ; i--) {
+        drawed_points[i].parentElement.removeChild(drawed_points[i]);
+    }
+    if (index == this.activePointIndex) {
+        this.changeActivePoint(null);
+        this.turn = this.TURN_BOTH;
+    }
+};
+
 
 PhotoAligner.prototype.getEmptyPoint = function () {
     return {
@@ -269,24 +311,25 @@ PhotoAligner.prototype.getOriginalPoints = function () {
         'new': []
     };
 
-    for (var i = 0; i < l; ++i){
+    for (var i = 0; i < l; ++i) {
         var point = this.points[i];
+        if (point !== null) {
+            points.old.push([
+                point.old_point.x2,
+                point.old_point.y2
+            ]);
 
-        points.old.push([
-            point.old_point.x2,
-            point.old_point.y2
-        ]);
-
-        points.new.push([
-            point.new_point.x2,
-            point.new_point.y2
-        ]);
+            points.new.push([
+                point.new_point.x2,
+                point.new_point.y2
+            ]);
+        }
     }
 
     return points;
 };
 
-PhotoAligner.prototype.deleteAllPoints = function(){
+PhotoAligner.prototype.deleteAllPoints = function () {
     this.points = [];
     this.activePointIndex = 0;
     this.turn = this.TURN_BOTH;
