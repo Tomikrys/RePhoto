@@ -23,7 +23,8 @@
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
-        "yiisoft/yii2-gii": "~2.0.0"
+        "yiisoft/yii2-gii": "~2.0.0",
+        "purrweb/yii2-heroku": "*"
     },
     "config": {
         "process-timeout": 1800,
@@ -39,5 +40,10 @@
             "type": "composer",
             "url": "https://asset-packagist.org"
         }
-    ]
+    ],
+    "scripts": {
+        "post-install-cmd": [
+            "sh post-install-cmd.sh"
+        ]
+    }
 }

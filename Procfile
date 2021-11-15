@@ -1,2 +1,1 @@
-
-hello yii serve --docroot="frontend/web/"
+web: vendor/bin/heroku-php-nginx -C nginx.conf frontend/web
