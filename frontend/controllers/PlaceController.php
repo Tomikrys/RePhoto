@@ -108,6 +108,7 @@ class PlaceController extends FrontendController
         if ($aligned != null) {
             $transformedImagePath = $aligned;
         } else {
+            // TODO jiný uploads na tmp
             $transformedImagePath = "/uploads/tmp/" . \Yii::$app->security->generateRandomString() . ".png";
 
             // manual align
@@ -121,15 +122,16 @@ class PlaceController extends FrontendController
                     $point[0] = (int)$point[0];
                     $point[1] = (int)$point[1];
                 }
-                $temp = tmpfile();
-                fwrite($temp, json_encode($points));
-                $tmpPath = stream_get_meta_data($temp)['uri'];
+                $tmpPath = "$root\\uploads\\tmp\\" . \Yii::$app->security->generateRandomString() . ".temp";
+                $temp_file = fopen( $tmpPath, "w");// or die("Unable to open file!");
+                fwrite($temp_file, json_encode($points));
+                fclose($temp_file);
+                chmod($tmpPath, 0755);
                 // TODO define python path in config
-                $command = "$root/python27/python.exe $root/homography-transformation-points.py $mainImgPath $transformingImgPath $root$transformedImagePath $tmpPath 2>&1";
-
+                $command = "$root/python27/python.exe $root/homography-transformation-points.py $mainImgPath $transformingImgPath $root\\frontend\\web$transformedImagePath $tmpPath 2>&1";
             } else {
                 // TODO define python path in config
-                $command = "$root/python27/python.exe $root/homography-transformation.py $mainImgPath $transformingImgPath $root$transformedImagePath 2>&1";
+                $command = "$root/python27/python.exe $root/homography-transformation.py $mainImgPath $transformingImgPath $root\\frontend\\web$transformedImagePath 2>&1";
             }
 
             $output = exec($command);
@@ -139,8 +141,9 @@ class PlaceController extends FrontendController
                 fclose($temp);
             }
 
-            if (!$status) {
+            if ($status != true) {
                 return $this->redirect(['/place/align-photo', 'id_photo' => $id_photo]);
+                // return $this->redirect(['/place/align-photo', 'id_photo' => $id_photo, 'points' => $output]);
             }
 
             $url = Url::to(['place/review-photo', 'id_photo' => $photoNew->id, 'aligned' => $transformedImagePath]);
@@ -174,39 +177,43 @@ class PlaceController extends FrontendController
         $transformingImgPath = $photoNew->getPath();
 
         // TODO define python path in config
-        $command = escapeshellcmd("/Users/martinsikora/.virtualenvs/rephoto/bin/python $root/homography-points.py '$mainImgPath' '$transformingImgPath' 2>&1");
+        $command = escapeshellcmd("$root/python27/python.exe $root/homography-points.py $mainImgPath $transformingImgPath 2>&1");
 
         $output = exec($command);
-        $output = str_replace("'", '"', $output);
-        $result = json_decode($output, true);
 
-        $oldPoints = json_decode($result['old']);
-        $newPoints = json_decode($result['new']);
-        $data = [];
-        $pc = count($oldPoints);
-        for ($i = 0; $i < $pc; ++$i) {
-            $data[] = [
-                'old_point' => [
-                    'x1' => 0,
-                    'y1' => 0,
-                    'x2' => $oldPoints[$i][0][0],
-                    'y2' => $oldPoints[$i][0][1],
-                ],
-                'new_point' => [
-                    'x1' => 0,
-                    'y1' => 0,
-                    'x2' => $newPoints[$i][0][0],
-                    'y2' => $newPoints[$i][0][1],
-                ],
-                'color' => sprintf('#%06X', mt_rand(0, 0xFFFFFF)),
-            ];
+        $data = null;
+        if ($output != "false") {
+            $output = str_replace("'", '"', $output);
+            $result = json_decode($output, true);
+
+            $oldPoints = json_decode($result['old']);
+            $newPoints = json_decode($result['new']);
+            $data = [];
+            $pc = count($oldPoints);
+            for ($i = 0; $i < $pc; ++$i) {
+                $data[] = [
+                    'old_point' => [
+                        'x1' => 0,
+                        'y1' => 0,
+                        'x2' => $oldPoints[$i][0][0],
+                        'y2' => $oldPoints[$i][0][1],
+                    ],
+                    'new_point' => [
+                        'x1' => 0,
+                        'y1' => 0,
+                        'x2' => $newPoints[$i][0][0],
+                        'y2' => $newPoints[$i][0][1],
+                    ],
+                    'color' => sprintf('#%06X', mt_rand(0, 0xFFFFFF)),
+                ];
+            }
         }
 
         return $this->render('add_photo/align', [
             'place' => $place,
             'photoOld' => $place->oldestPhoto,
             'photoNew' => $photoNew,
-            'points' => $data,
+            'points' => $data
         ]);
     }
 
@@ -323,7 +330,7 @@ class PlaceController extends FrontendController
     {
         $place = $this->findModel($id_place);
 
-        if ($place->id_user !== \Yii::$app->user->id){
+        if ($place->id_user !== \Yii::$app->user->id) {
             throw new ForbiddenHttpException('This is not your place', 403);
         }
 
@@ -341,5 +348,4 @@ class PlaceController extends FrontendController
             'place' => $place,
         ]);
     }
-
 }
