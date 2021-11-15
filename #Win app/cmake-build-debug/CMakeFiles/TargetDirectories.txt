@@ -1,3 +1,0 @@
-D:/Refotografing-source/cmake-build-debug/CMakeFiles/rephotografing_cv.dir
-D:/Refotografing-source/cmake-build-debug/CMakeFiles/edit_cache.dir
-D:/Refotografing-source/cmake-build-debug/CMakeFiles/rebuild_cache.dir
