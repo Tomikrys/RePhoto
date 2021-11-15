@@ -34,13 +34,13 @@ AppAsset::register($this);
     <?php endif; ?>
 
     <main>
-        <? Pjax::begin(['id' => 'main-pjax', 'options' => ['class' => 'pjax-wrapper']]) ?>
+        <?php Pjax::begin(['id' => 'main-pjax', 'options' => ['class' => 'pjax-wrapper']]) ?>
 
         <?= Alert::widget() ?>
 
         <?= $content ?>
 
-        <? Pjax::end() ?>
+        <?php Pjax::end() ?>
     </main>
 
     <?= $this->render('partial/cookiebar'); ?>
