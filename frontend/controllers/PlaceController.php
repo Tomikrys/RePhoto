@@ -312,6 +312,7 @@ class PlaceController extends FrontendController
 
                 if ($id_photo) {
                     $trans->commit();
+                    \frontend\models\elasticsearch\Place::refreshData();
                     return $this->redirect(['view', 'id' => $place->id]);
                 }
             }
