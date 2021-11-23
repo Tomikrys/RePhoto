@@ -51,7 +51,7 @@ class Place extends ActiveRecord
             $model->id = $place->id;
             $model->id_category = $place->id_category;
             $model->photo_captured_at = array_values(ArrayHelper::map($place->getPhotos()->select(['id', 'captured_at'])->asArray()->all(), 'id', 'captured_at'));
-            $model->location = ['lat' => (double)$place->latitude, 'lon' => (double)$place->longitude];
+            $model->location = ['lat' => (float)$place->latitude, 'lon' => (float)$place->longitude];
             if (!$model->save()) {
                 return false;
             }
@@ -114,12 +114,12 @@ class Place extends ActiveRecord
                     "geo_bounding_box" => [
                         "location" => [
                             "top_left" => [
-                                'lat' => (double)$boundingBox['nw']['lat'],
-                                'lon' => (double)$boundingBox['nw']['lon'],
+                                'lat' => (float)$boundingBox['nw']['lat'],
+                                'lon' => (float)$boundingBox['nw']['lon'],
                             ],
                             "bottom_right" => [
-                                'lat' => (double)$boundingBox['se']['lat'],
-                                'lon' => (double)$boundingBox['se']['lon'],
+                                'lat' => (float)$boundingBox['se']['lat'],
+                                'lon' => (float)$boundingBox['se']['lon'],
                             ],
                         ],
                     ],
