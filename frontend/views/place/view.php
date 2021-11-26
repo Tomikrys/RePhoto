@@ -10,26 +10,26 @@ $this->bodyClasses[] = 'place-detail';
 \frontend\assets\GoogleMapAsset::register($this);
 ?>
 
-    <section class="container main-info">
-        <h1><?= $this->title ?></h1>
+<section class="container main-info">
+    <h1><?= $this->title ?></h1>
 
-        <div class="row">
-            <div class="col-md-6 active-image-box">
-                <img id="active-photo" class="" src="<?= $photos[0]['original_url'] ?>">
-            </div>
-            <div class="col-md-6 white-box ">
-                <div class="row">
-                    <div class="col s12">
-                        <ul class="tabs">
-                            <li class="tab col s4"><a href="#place">Místo</a></li>
-                            <li class="tab col s4"><a href="#photo">Fotografie</a></li>
-                            <li class="tab col s4"><a href="#map">Mapa</a></li>
-                        </ul>
-                    </div>
+    <div class="row">
+        <div class="col-md-6 active-image-box">
+            <img id="active-photo" class="" src="<?= $photos[0]['original_url'] ?>">
+        </div>
+        <div class="col-md-6 white-box ">
+            <div class="row">
+                <div class="col s12">
+                    <ul class="tabs">
+                        <li class="tab col s4"><a href="#place">Místo</a></li>
+                        <li class="tab col s4"><a href="#photo">Fotografie</a></li>
+                        <li class="tab col s4"><a href="#map">Mapa</a></li>
+                    </ul>
+                </div>
 
-                    <div id="place" class="col s12">
-                        <table class="table info-table">
-                            <tbody>
+                <div id="place" class="col s12">
+                    <table class="table info-table">
+                        <tbody>
                             <tr>
                                 <th>Popis</th>
                                 <td>
@@ -40,13 +40,13 @@ $this->bodyClasses[] = 'place-detail';
                                 <th>GPS</th>
                                 <td><?= $place->latitude ?> / <?= $place->longitude ?></td>
                             </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                        </tbody>
+                    </table>
+                </div>
 
-                    <div id="photo" class="col s12">
-                        <table class="table info-table">
-                            <tbody>
+                <div id="photo" class="col s12">
+                    <table class="table info-table">
+                        <tbody>
                             <tr>
                                 <th>Autor</th>
                                 <td>
@@ -57,71 +57,79 @@ $this->bodyClasses[] = 'place-detail';
                                 <th>Zachyceno</th>
                                 <td><?= Yii::$app->formatter->asDate($photos[0]['captured_at'], 'Y') ?></td>
                             </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div id="map" class="col s12">
-                        <div id="google-map"></div>
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
 
-                <div class="actions">
-                    <a class="btn waves-effect waves-light btn-flat" data-pjax="0"
-                       href="<?= \yii\helpers\Url::to(['/place/update', 'id_place' => $place->id]) ?>">
-                        Edit place
-                    </a>
-
-                    <a class="btn waves-effect waves-light"
-                       href="<?= \yii\helpers\Url::to(['/place/upload-photo', 'id_place' => $place->id]) ?>">
-                        Add new rephoto
-                    </a>
+                <div id="map" class="col s12">
+                    <div id="google-map"></div>
                 </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col-md-12 additional-images-box">
-                <div class="row">
-                    <?php if (!empty($photos)): ?>
-                        <div class=" col-md-12 valign-wrapper photos">
-                            <i class="material-icons scroll-left-btn">keyboard_arrow_left</i>
-                            <?= $this->render('partial/photos', ['photos' => $photos]) ?>
-                            <i class="material-icons scroll-right-btn">keyboard_arrow_right</i>
-                        </div>
-                    <?php endif; ?>
-                    <php
-                    <?php if (!empty($photosEdited)): ?>
-                        <div class=" col-md-12 valign-wrapper edited">
-                            <i class="material-icons scroll-left-btn">keyboard_arrow_left</i>
-                            <?= $this->render('partial/photos_edited', ['photos' => $photosEdited]) ?>
-                            <i class="material-icons scroll-right-btn">keyboard_arrow_right</i>
-                        </div>
-                    <?php endif; ?>
-                    <div></div>
-                </div>
+            <div class="actions">
+                <a class="btn waves-effect waves-light btn-flat" style="margin-top: 5px;" data-pjax="0" href="<?= \yii\helpers\Url::to(['/place/update', 'id_place' => $place->id]) ?>">
+                    Edit place
+                </a>
+
+                <a class="btn waves-effect waves-light" style="margin-top: 5px;" href="<?= \yii\helpers\Url::to(['/place/upload-photo', 'id_place' => $place->id]) ?>">
+                    Add new rephoto
+                </a>
+                <!-- TODO functionality -->
+                <a class="btn waves-effect waves-light red" style="margin-top: 5px;" href="<?= \yii\helpers\Url::to(['/place/upload-photo', 'id_place' => $place->id]) ?>">
+                    Delete place
+                </a>
             </div>
         </div>
+    </div>
 
-    </section>
+    <div class="row">
+        <div class="col-md-12 additional-images-box">
+            <div class="row">
+                <?php if (!empty($photos)) : ?>
+                    <div class=" col-md-12 valign-wrapper photos">
+                        <i class="material-icons scroll-left-btn">keyboard_arrow_left</i>
+                        <?= $this->render('partial/photos', ['photos' => $photos]) ?>
+                        <i class="material-icons scroll-right-btn">keyboard_arrow_right</i>
+                    </div>
+                <?php endif; ?>
+                <?php if (!empty($photosEdited)) : ?>
+                    <div class=" col-md-12 valign-wrapper edited">
+                        <i class="material-icons scroll-left-btn">keyboard_arrow_left</i>
+                        <?= $this->render('partial/photos_edited', ['photos' => $photosEdited]) ?>
+                        <i class="material-icons scroll-right-btn">keyboard_arrow_right</i>
+                    </div>
+                <?php endif; ?>
+                <div></div>
+            </div>
+        </div>
+    </div>
 
-    <script>
-        var map;
+</section>
 
-        function initMap() {
-            map = new google.maps.Map(document.getElementById('google-map'), {
-                center: {lat: <?= $place->latitude ?>, lng: <?= $place->longitude ?>},
-                zoom: 10
-            });
+<script>
+    var map;
 
-            var marker = new google.maps.Marker({
-                position: {lat: <?= $place->latitude ?>, lng: <?= $place->longitude ?>},
-                map: map
-            });
-        }
-    </script>
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('google-map'), {
+            center: {
+                lat: <?= $place->latitude ?>,
+                lng: <?= $place->longitude ?>
+            },
+            zoom: 10
+        });
 
-<?php $this->registerJs(<<<JS
+        var marker = new google.maps.Marker({
+            position: {
+                lat: <?= $place->latitude ?>,
+                lng: <?= $place->longitude ?>
+            },
+            map: map
+        });
+    }
+</script>
+
+<?php $this->registerJs(
+    <<<JS
     $(document).on('click', '.card img', function() {
         $("#active-photo").attr('src', $(this).data('url-original'));
     });
