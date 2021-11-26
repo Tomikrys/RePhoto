@@ -81,7 +81,7 @@ class MapController extends FrontendController
         \Yii::$app->response->format = Response::FORMAT_JSON;
         return [
             'markers' => $data['markers'],
-//            'places' => $data['places'],
+            // 'places' => $data['places'],
             'page' => $data['page'],
             'lastFetch' => $data['lastFetch'],
             'placesPreview' => $placesPreview,

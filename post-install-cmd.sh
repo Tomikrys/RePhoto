@@ -1,7 +1,7 @@
 #!/bin/sh
-if [ -n "$DYNO" ]
-then
-    php init --env=Heroku --overwrite=All
-    ln -s /app/backend/web frontend/web/backend
-    ln -s /app/vendor/bower-asset vendor/bower
+if [ -n "$DYNO" ]  && [ -n "$ENV" ]; then
+    php init --env=$ENV --overwrite=All
+    php yii migrate/up --interactive=0
+    php yii cache/flush-all
+    php yii cache/flush-schema --interactive=0
 fi

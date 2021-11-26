@@ -1,22 +1,11 @@
 <?php
-
-$host = $username = $password = $dbname = '';
-
-$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
-if (isset($url["host"]) && isset($url["user"]) && isset($url["pass"]) && isset($url["path"])) {
-    $host = $url["host"];
-    $username = $url["user"];
-    $password = $url["pass"];
-    $dbname = substr($url["path"], 1);
-}
-
 return [
     'components' => [
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=' . $host . ';dbname=' . $dbname,
-            'username' => $username,
-            'password' => $password,
+            'dsn' => 'mysql:host=f80b6byii2vwv8cx.chr7pe7iynqr.eu-west-1.rds.amazonaws.com;dbname=gclkx3be7ffav7k3',
+            'username' => 'vwc55tk2iqg7oi4z',
+            'password' => 'nwpenfr839ewr5i3',
             'charset' => 'utf8',
         ],
         'mailer' => [
