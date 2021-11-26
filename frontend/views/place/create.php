@@ -65,9 +65,9 @@ $this->bodyClasses[] = 'place';
     function initMap() {
         map = new google.maps.Map(document.getElementById('google-map'), {
             center: {
-                lat: <?= $place->latitude ?? 47 ?>,
-                lng: <?= $place->longitude ?? 17 ?>},
-            zoom: 10,
+                lat: <?= $place->latitude ?? 49.77382169121868 ?>,
+                lng: <?= $place->longitude ?? 15.73858101173263 ?>},
+            zoom: <?= $place->latitude ? 10 : 7 ?>,
             streetViewControl: false
         });
 

@@ -63,20 +63,31 @@ $this->bodyClasses[] = 'place';
     function initMap() {
         map = new google.maps.Map(document.getElementById('google-map'), {
             center: {
-                lat: <?= $place->latitude ?? 47 ?>,
-                lng: <?= $place->longitude ?? 17 ?>},
-            zoom: 10,
+                lat: <?= $place->latitude ?? 49.77382169121868 ?>,
+                lng: <?= $place->longitude ?? 15.73858101173263 ?>
+            },
+            zoom: <?= $place->latitude ? 10 : 7 ?>,
             streetViewControl: false
         });
-
+        const myLatLng = {
+            lat: <?= $place->latitude ?>,
+            lng: <?= $place->longitude ?>
+        };
+        actualMarker = new google.maps.Marker({
+            position: myLatLng,
+            map,
+        });
 
         // add marker on click
-        google.maps.event.addListener(map, 'click', function (event) {
+        google.maps.event.addListener(map, 'click', function(event) {
             if (actualMarker != null) {
                 actualMarker.setMap(null);
             }
 
-            actualMarker = new google.maps.Marker({position: event.latLng, map: map});
+            actualMarker = new google.maps.Marker({
+                position: event.latLng,
+                map: map
+            });
 
             $("#place-latitude").val(event.latLng.lat());
             $("#place-longitude").val(event.latLng.lng());
@@ -85,13 +96,12 @@ $this->bodyClasses[] = 'place';
 
         var geocoder = new google.maps.Geocoder;
 
-        $("#place-latitude, #place-longitude").on('change', function () {
+        $("#place-latitude, #place-longitude").on('change', function() {
             geocodeLatLng(geocoder, map);
-            map.setCenter(
-                {
-                    lat: parseFloat($("#place-latitude").val()),
-                    lng: parseFloat($("#place-longitude").val()),
-                });
+            map.setCenter({
+                lat: parseFloat($("#place-latitude").val()),
+                lng: parseFloat($("#place-longitude").val()),
+            });
         });
 
 
@@ -101,18 +111,18 @@ $this->bodyClasses[] = 'place';
         map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
         // disable enter submit
-        google.maps.event.addDomListener(input, 'keydown', function (event) {
+        google.maps.event.addDomListener(input, 'keydown', function(event) {
             if (event.keyCode === 13) {
                 event.preventDefault();
             }
         });
 
         // Bias the SearchBox results towards current map's viewport.
-        map.addListener('bounds_changed', function () {
+        map.addListener('bounds_changed', function() {
             searchBox.setBounds(map.getBounds());
         });
 
-        searchBox.addListener('places_changed', function () {
+        searchBox.addListener('places_changed', function() {
             var places = searchBox.getPlaces();
 
             if (places.length == 0) {
@@ -121,7 +131,7 @@ $this->bodyClasses[] = 'place';
 
             // For each place, get the icon, name and location.
             var bounds = new google.maps.LatLngBounds();
-            places.forEach(function (place) {
+            places.forEach(function(place) {
                 if (!place.geometry) {
                     console.log("Returned place contains no geometry");
                     return;
@@ -157,8 +167,13 @@ $this->bodyClasses[] = 'place';
             return;
         }
 
-        var latlng = {lat: parseFloat(lat), lng: parseFloat(long)};
-        geocoder.geocode({'location': latlng}, function (results, status) {
+        var latlng = {
+            lat: parseFloat(lat),
+            lng: parseFloat(long)
+        };
+        geocoder.geocode({
+            'location': latlng
+        }, function(results, status) {
             if (status === 'OK') {
                 if (results[0]) {
                     if (actualMarker != null) {
@@ -173,6 +188,4 @@ $this->bodyClasses[] = 'place';
             }
         });
     }
-
-
 </script>
