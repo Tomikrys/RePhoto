@@ -50,6 +50,9 @@ use yii\helpers\Url;
                 </li>
 
                 <li>
+                    <a class="waves-effect waves-light" href="<?= Url::to(['/takephoto']) ?>"><?= Yii::t('app/menu', 'Take Photo') ?></a>
+                </li>
+                <li>
                     <a class="waves-effect waves-light" href="<?= Url::to(['/place/create']) ?>"><?= Yii::t('app/menu', 'Add Photo') ?></a>
                 </li>
                 <li>

@@ -91,6 +91,7 @@ return [
                 ['pattern' => 'sitemap', 'route' => 'sitemap/default/index', 'suffix' => '.xml'],
                 
                 'map' => 'map/index',
+                'takephoto' => 'takephoto/index',
                 'editor' => 'editor/index',
                 'places/<id:\d+>' => 'place/view',
                 'places/photo/<id_photo:\d+>/review' => 'place/review-photo',
@@ -134,6 +135,7 @@ return [
         'elasticsearch' => [
             'class' => 'yii\elasticsearch\Connection',
             'nodes' => [
+                // TODO localhost
                 ['http_address' => '127.0.0.1:9200'],
             ],
         ],
@@ -213,6 +215,11 @@ return [
                 ],
                 [
                     'loc' => '/editor',
+                    'changefreq' => SitemapBehavior::CHANGEFREQ_MONTHLY,
+                    'priority' => 0.7,
+                ],
+                [
+                    'loc' => '/takephoto',
                     'changefreq' => SitemapBehavior::CHANGEFREQ_MONTHLY,
                     'priority' => 0.7,
                 ],
