@@ -17,7 +17,7 @@
 <?php else: ?>
     <?php foreach ($places as $place): ?>
 
-        <div class="card"
+        <div class="card col"
              data-lat="<?= $place['latitude'] ?>"
              data-lng="<?= $place['longitude'] ?>"
         >
@@ -42,6 +42,7 @@
 <?php endif; ?>
 
 <?php if (!$lastFetch): ?>
+    <!-- TODO nefunguje -->
     <div class="actions text-center">
         <?= \yii\helpers\Html::button('load more', [
             'id' => 'btn-next-preview',
