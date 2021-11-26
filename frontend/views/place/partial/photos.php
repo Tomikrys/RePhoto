@@ -39,6 +39,13 @@ use yii\helpers\Url;
                         'style' => $photo['in_editor'] ?: 'display: none;',
                     ]) ?>
                 </div>
+                <div class="card-action">
+                    <!-- TODO functionality -->
+                    <?= \yii\helpers\Html::a('delete photo', Url::to(['/photo/add-to-editor-list', 'id' => $photo['user']['id']]), [
+                        'class' => 'toggle-editor-btn',
+                        'style' => 'color: red'
+                    ]) ?>
+                </div>
             </div>
     <?php endforeach; ?>
 </div>
