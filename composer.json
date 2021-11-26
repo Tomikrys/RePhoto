@@ -19,7 +19,8 @@
         "himiklab/yii2-sitemap-module": "*",
         "codemix/yii2-localeurls": "^1.7",
         "dmstr/yii2-adminlte-asset": "^2.1",
-        "kartik-v/yii2-widget-datepicker": "@dev"
+        "kartik-v/yii2-widget-datepicker": "@dev",
+        "johnson/yii2-webcam": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
