@@ -5,7 +5,7 @@ Yii::setAlias('@api', dirname(dirname(__DIR__)) . '/api');
 Yii::setAlias('@frontend', dirname(dirname(__DIR__)) . '/frontend');
 Yii::setAlias('@backend', dirname(dirname(__DIR__)) . '/backend');
 Yii::setAlias('@console', dirname(dirname(__DIR__)) . '/console');
-Yii::setAlias('@uploads', dirname(dirname(__DIR__)) . '/frontend/web/uploads');
+Yii::setAlias('@uploads', dirname(dirname(__DIR__)) . '/uploads');
 Yii::setAlias('@web', dirname(dirname(__DIR__)) . '/frontend/web');
 
 function dieArray($var)

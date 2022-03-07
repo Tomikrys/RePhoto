@@ -14,8 +14,8 @@ img2 = cv2.imread(sys.argv[2])
 file = open(sys.argv[4], "r")
 points = json.loads(file.read())
 
-src_pts = np.float32(points['old']).reshape(-1,1,2)
-dst_pts = np.float32(points['new']).reshape(-1,1,2)
+dst_pts = np.float32(points['old']).reshape(-1,1,2)
+src_pts = np.float32(points['new']).reshape(-1,1,2)
 print (src_pts)
 print (dst_pts)
 

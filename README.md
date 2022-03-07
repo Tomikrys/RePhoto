@@ -1,3 +1,22 @@
+Je nutné nainstalovat XAMPP
+Nainstalovat Composer
+
+mít PHP v PATH
+    C:\xampp\php
+mít Javu jako JAVA_HOME v proměnných
+    JAVA_HOME - C:\Program Files\Java\jre1.8.0_311
+
+composer install
+php init
+  // V soboru src/common/config/main-local.php změnit přístupy k DB
+php yii migrate
+php yii elasticsearch/init
+
+run-elastic.bat
+run.bat
+    
+je potřeba mít nainstalovaný Python 2.7, PHP 7.1, MariaDB 10.2, Elasticsearch 6.2 a případná rozšíření požadovaná při spuštění: composer install
+
 Yii 2 Advanced Project Template
 ===============================
 
