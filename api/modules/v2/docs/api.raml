@@ -1,0 +1,1022 @@
+#%RAML 1.0
+---
+title: Rephoto
+baseUri: https://rephoto.skrai.cz/api/v2
+
+types:
+  PlacePhoto:
+    properties:
+      id:
+        description: identifikace fotografie
+        type: integer
+      captured_at:
+        description: datum pořížení
+        type: string
+      id_file:
+        description: identifikace souboru
+        type: integer
+      id_place:
+        description: identifikace místa
+        type: integer
+      id_user:
+        description: identifikace autora
+        type: integer
+      user:
+        description: infrormace o uživateli
+        type: object
+        properties:
+          id:
+            description: identifikace uživatele
+            type: integer
+          first_name:
+            description: jméno
+            type: string
+          last_name:
+            description: příjmení
+            type: string
+
+/user:
+  description: "Koncové body pro práci s uživatelem"
+  post:
+    description: "Registrace nového uživatele"
+    body:
+      application/json:
+        type: object
+        properties:
+          email:
+            description: Email
+            type: string
+            required: true
+          password:
+            description: Heslo
+            type: string
+            required: true
+          first_name:
+            description: Jméno
+            type: string
+            required: true
+          last_name:
+            description: Příjmení
+            type: string
+            required: true
+        example: |
+          {
+            "email": "sikora@skrai.cz",
+            "password": "IOJdfOJn8asd76",
+            "first_name": "Martin",
+            "last_name": "Sikora"
+          }
+
+    responses:
+      200:
+        body:
+          application/json:
+            type: object
+            properties:
+              status:
+                type: boolean
+                description: stav požadavku
+              data:
+                description: data přihlášeného uživatele
+                type: object
+                properties:
+                  id:
+                    description: identifikace uživatele
+                    type: integer
+                  access_token:
+                    description: přístupový token
+                    type: string
+                  first_name:
+                    description: jméno
+                    type: string
+                  last_name:
+                    description: příjmení
+                    type: string
+                  email:
+                    description: email
+                    type: string
+            example: |
+              {
+                "status": true,
+                "data": {
+                    "id": 1,
+                    "access_token": "L1VSVd9TpGXr4JepZAov61SAEJZmI4ss",
+                    "first_name": "Martin",
+                    "last_name": "Sikora",
+                    "email": "sikora@skrai.cz
+                  }
+              }
+      500:
+        body:
+          application/json:
+            type: object
+            properties:
+              status:
+                type: boolean
+                description: stav požadavku
+              error:
+                description: chybová hláška
+                type: string
+            example: |
+              {
+                "status": false,
+                "error": "Internal server error."
+              }
+  put:
+    description: "Úprava uživatele"
+    headers:
+      Authorization:
+        type: string
+        description: "Přístupový token."
+        example: "Bearer L1VSVd9TpGXr4JepZAov61SAEJZmI4ss"
+    body:
+      application/json:
+        properties:
+          email:
+            description: Email
+            type: string
+            required: false
+          password:
+            description: Heslo
+            type: string
+            required: false
+          first_name:
+            description: Jméno
+            type: string
+            required: false
+          last_name:
+            description: Příjmení
+            type: string
+            required: false
+        example: |
+          {
+            "email": "sikora@skrai.cz",
+            "password": "IOJdfOJn8asd76",
+            "first_name": "Martin",
+            "last_name": "Sikora"
+          }
+
+    responses:
+      200:
+        body:
+          application/json:
+            type: object
+            properties:
+              status:
+                type: boolean
+                description: stav požadavku
+              data:
+                description: data přihlášeného uživatele
+                type: object
+                properties:
+                  id:
+                    description: identifikace uživatele
+                    type: integer
+                  access_token:
+                    description: přístupový token
+                    type: string
+                  first_name:
+                    description: jméno
+                    type: string
+                  last_name:
+                    description: příjmení
+                    type: string
+                  email:
+                    description: email
+                    type: string
+            example: |
+              {
+                "status": true,
+                "data": {
+                    "id": 1
+                    "access_token": "L1VSVd9TpGXr4JepZAov61SAEJZmI4ss",
+                    "first_name": "Martin",
+                    "last_name": "Sikora",
+                    "email": "sikora@skrai.cz
+                  }
+              }
+      401:
+        body:
+          application/json:
+            type: object
+            properties:
+              status:
+                type: boolean
+                description: stav požadavku
+              error:
+                description: chybová hláška
+                type: string
+            example: |
+              {
+                "status": false,
+                "error": "Authorization header is missing."
+              }
+      403:
+        body:
+          application/json:
+            type: object
+            properties:
+              status:
+                type: boolean
+                description: stav požadavku
+              error:
+                description: chybová hláška
+                type: string
+            example: |
+              {
+                "status": false,
+                "error": "Authorization header is not valid."
+              }
+      500:
+        body:
+          application/json:
+            type: object
+            properties:
+              status:
+                type: boolean
+                description: stav požadavku
+              error:
+                description: chybová hláška
+                type: string
+            example: |
+              {
+                "status": false,
+                "error": "Internal server error."
+              }
+  get:
+    description: "Získání dat přihlášeného uživatele"
+    headers:
+      Authorization:
+        type: string
+        description: "Přístupový token."
+        example: "Bearer L1VSVd9TpGXr4JepZAov61SAEJZmI4ss"
+    responses:
+      200:
+        body:
+          application/json:
+            type: object
+            properties:
+              status:
+                type: boolean
+                description: stav požadavku
+              data:
+                description: data přihlášeného uživatele
+                type: object
+                properties:
+                  id:
+                    description: identifikace uživatele
+                    type: integer
+                  access_token:
+                    description: přístupový token
+                    type: string
+                  first_name:
+                    description: jméno
+                    type: string
+                  last_name:
+                    description: příjmení
+                    type: string
+                  email:
+                    description: email
+                    type: string
+            example: |
+              {
+                "status": true,
+                "data": {
+                    "id": 1
+                    "access_token": "L1VSVd9TpGXr4JepZAov61SAEJZmI4ss",
+                    "first_name": "Martin",
+                    "last_name": "Sikora",
+                    "email": "sikora@skrai.cz
+                  }
+              }
+      401:
+        body:
+          application/json:
+            type: object
+            properties:
+              status:
+                type: boolean
+                description: stav požadavku
+              error:
+                description: chybová hláška
+                type: string
+            example: |
+              {
+                "status": false,
+                "error": "Authorization header is missing."
+              }
+      403:
+        body:
+          application/json:
+            type: object
+            properties:
+              status:
+                type: boolean
+                description: stav požadavku
+              error:
+                description: chybová hláška
+                type: string
+            example: |
+              {
+                "status": false,
+                "error": "Authorization header is not valid."
+              }
+      500:
+        body:
+          application/json:
+            type: object
+            properties:
+              status:
+                type: boolean
+                description: stav požadavku
+              error:
+                description: chybová hláška
+                type: string
+            example: |
+              {
+                "status": false,
+                "error": "Internal server error."
+              }
+  /login:
+    post:
+      description: "Přihlášení registrovaného uživatele"
+      body:
+        application/json:
+          type: object
+          properties:
+            email:
+              description: Email
+              type: string
+              required: true
+            password:
+              description: Heslo
+              type: string
+              required: true
+          example: |
+            {
+              "email": "sikora@skrai.cz",
+              "password": "IOJdfOJn8asd76"
+            }
+
+      responses:
+        200:
+          body:
+            application/json:
+              type: object
+              properties:
+                status:
+                  type: boolean
+                  description: stav požadavku
+                data:
+                  description: data přihlášeného uživatele
+                  type: object
+                  properties:
+                    id:
+                      description: identifikace uživatele
+                      type: integer
+                    access_token:
+                      description: přístupový token
+                      type: string
+                    first_name:
+                      description: jméno
+                      type: string
+                    last_name:
+                      description: příjmení
+                      type: string
+                    email:
+                      description: email
+                      type: string
+              example: |
+                {
+                  "status": true,
+                  "data": {
+                      "id": 1,
+                      "access_token": "L1VSVd9TpGXr4JepZAov61SAEJZmI4ss",
+                      "first_name": "Martin",
+                      "last_name": "Sikora",
+                      "email": "sikora@skrai.cz
+                    }
+                }
+        401:
+          body:
+            application/json:
+              type: object
+              properties:
+                status:
+                  type: boolean
+                  description: stav požadavku
+                error:
+                  description: chybová hláška
+                  type: string
+              example: |
+                {
+                  "status": false,
+                  "error": "Invalid email or password."
+                }
+        500:
+          body:
+            application/json:
+              type: object
+              properties:
+                status:
+                  type: boolean
+                  description: stav požadavku
+                error:
+                  description: chybová hláška
+                  type: string
+              example: |
+                {
+                  "status": false,
+                  "error": "Internal server error."
+                }
+  /logout:
+    get:
+      description: "Odhlášení uživatele"
+      headers:
+        Authorization:
+          type: string
+          description: "Přístupový token."
+          example: "Bearer L1VSVd9TpGXr4JepZAov61SAEJZmI4ss"
+      responses:
+        200:
+          body:
+            application/json:
+              type: object
+              properties:
+                status:
+                  type: boolean
+                  description: stav požadavku
+              example: |
+                {
+                  "status": true
+                }
+        401:
+          body:
+            application/json:
+              type: object
+              properties:
+                status:
+                  type: boolean
+                  description: stav požadavku
+                error:
+                  description: chybová hláška
+                  type: string
+              example: |
+                {
+                  "status": false,
+                  "error": "Authorization header is missing."
+                }
+        403:
+          body:
+            application/json:
+              type: object
+              properties:
+                status:
+                  type: boolean
+                  description: stav požadavku
+                error:
+                  description: chybová hláška
+                  type: string
+              example: |
+                {
+                  "status": false,
+                  "error": "Authorization header is not valid."
+                }
+        500:
+          body:
+            application/json:
+              type: object
+              properties:
+                status:
+                  type: boolean
+                  description: stav požadavku
+                error:
+                  description: chybová hláška
+                  type: string
+              example: |
+                {
+                  "status": false,
+                  "error": "Internal server error."
+                }
+  /request-password-reset:
+    put:
+      description: "Žádost o změnu zapomenutého hesla"
+      body:
+        application/json:
+          properties:
+            email:
+              description: Email
+              type: string
+              required: false
+          example: |
+            {
+              "email": "sikora@skrai.cz"
+            }
+      responses:
+        200:
+          body:
+            application/json:
+              type: object
+              properties:
+                status:
+                  type: boolean
+                  description: stav požadavku
+              example: |
+                {
+                  "status": true
+                }
+        500:
+          body:
+            application/json:
+              type: object
+              properties:
+                status:
+                  type: boolean
+                  description: stav požadavku
+                error:
+                  description: chybová hláška
+                  type: string
+              example: |
+                {
+                  "status": false,
+                  "error": "Internal server error."
+                }
+
+/place:
+  get:
+    description: "Získání míst"
+    responses:
+      200:
+        body:
+          application/json:
+            type: object
+            properties:
+              status:
+                type: boolean
+                description: stav požadavku
+              data:
+                description: data přihlášeného uživatele
+                type: object
+                properties:
+                  id:
+                    description: ID místa
+                    type: integer
+                  name:
+                    description: Název
+                    type: string
+                  latitude:
+                    description: Nadmořská výška
+                    type: string
+                  longitude:
+                    description: Nadmořská šířka
+                    type: string
+                  oldestPhoto:
+                    description: nejstaší fotografie
+                    type: PlacePhoto
+                  newestPhoto:
+                    description: nejnovětší refotografie
+                    type: PlacePhoto
+            example: |
+              {
+                "status": true,
+                "data": [
+                  {
+                      "id": "1",
+                      "name": "Place 0",
+                      "latitude": "48.93347241",
+                      "longitude": "11.81011800",
+                      "oldestPhoto": {
+                          "id": "1",
+                          "captured_at": "1965-02-01 00:00:00",
+                          "id_file": "1",
+                          "id_place": "1",
+                          "id_user": "1",
+                          "user": {
+                              "id": "1",
+                              "first_name": "Martin1",
+                              "last_name": "Sikora2"
+                          }
+                      },
+                      "newestPhoto": {
+                          "id": "3",
+                          "captured_at": "2018-05-22 22:58:03",
+                          "id_file": "3",
+                          "id_place": "1",
+                          "id_user": "1",
+                          "user": {
+                              "id": "1",
+                              "first_name": "Martin1",
+                              "last_name": "Sikora2"
+                          }
+                      }
+                  }
+                ]
+              }
+      500:
+        body:
+          application/json:
+            type: object
+            properties:
+              status:
+                type: boolean
+                description: stav požadavku
+              error:
+                description: chybová hláška
+                type: string
+            example: |
+              {
+                "status": false,
+                "error": "Internal server error."
+              }
+  post:
+    description: "Tvorba místa"
+    body:
+      application/json:
+        properties:
+          name:
+            description: Název
+            type: string
+          description:
+            description: Popis
+            type: string
+          latitude:
+            description: Nadmožská výška
+            type: number
+          longitude:
+            description: Nadmořká šířka
+            type: number
+          id_category:
+            description: ID kategorie
+            type: integer
+          file:
+            description: soubor s fotografií
+            type: file
+
+        example: |
+          {
+            "name": "Testovací 1",
+            "description": "popisek",
+            "latitude": 49,
+            "longitude": 17,
+            "id_category": 1
+          }
+
+    responses:
+      200:
+        body:
+          application/json:
+            type: object
+            properties:
+              status:
+                type: boolean
+                description: stav požadavku
+            example: |
+              {
+                "status": true
+              }
+      401:
+        body:
+          application/json:
+            type: object
+            properties:
+              status:
+                type: boolean
+                description: stav požadavku
+              error:
+                description: chybová hláška
+                type: string
+            example: |
+              {
+                "status": false,
+                "error": "Authorization header is missing."
+              }
+      403:
+        body:
+          application/json:
+            type: object
+            properties:
+              status:
+                type: boolean
+                description: stav požadavku
+              error:
+                description: chybová hláška
+                type: string
+            example: |
+              {
+                "status": false,
+                "error": "Authorization header is not valid."
+              }
+      500:
+        body:
+          application/json:
+            type: object
+            properties:
+              status:
+                type: boolean
+                description: stav požadavku
+              error:
+                description: chybová hláška
+                type: string
+            example: |
+              {
+                "status": false,
+                "error": "Internal server error."
+              }
+  /{id}:
+    uriParameters:
+      id:
+        description: ID místa
+        example: 2
+        type: integer
+    put:
+      description: "Úprava místa"
+      body:
+        application/json:
+          properties:
+            name:
+              description: Název
+              type: string
+            description:
+              description: Popis
+              type: string
+            latitude:
+              description: Nadmožská výška
+              type: number
+            longitude:
+              description: Nadmořká šířka
+              type: number
+            id_category:
+              description: ID kategorie
+              type: integer
+          example: |
+            {
+            	"name": "Testovací 1",
+            	"description": "popisek",
+            	"latitude": 49,
+            	"longitude": 17,
+            	"id_category": 1
+            }
+
+      responses:
+        200:
+          body:
+            application/json:
+              type: object
+              properties:
+                status:
+                  type: boolean
+                  description: stav požadavku
+              example: |
+                {
+                  "status": true
+                }
+        401:
+          body:
+            application/json:
+              type: object
+              properties:
+                status:
+                  type: boolean
+                  description: stav požadavku
+                error:
+                  description: chybová hláška
+                  type: string
+              example: |
+                {
+                  "status": false,
+                  "error": "Authorization header is missing."
+                }
+        403:
+          body:
+            application/json:
+              type: object
+              properties:
+                status:
+                  type: boolean
+                  description: stav požadavku
+                error:
+                  description: chybová hláška
+                  type: string
+              example: |
+                {
+                  "status": false,
+                  "error": "Authorization header is not valid."
+                }
+        500:
+          body:
+            application/json:
+              type: object
+              properties:
+                status:
+                  type: boolean
+                  description: stav požadavku
+                error:
+                  description: chybová hláška
+                  type: string
+              example: |
+                {
+                  "status": false,
+                  "error": "Internal server error."
+                }
+    delete:
+      description: "Smazání místa"
+      responses:
+        200:
+          body:
+            application/json:
+              type: object
+              properties:
+                status:
+                  type: boolean
+                  description: stav požadavku
+              example: |
+                {
+                  "status": true
+                }
+        401:
+          body:
+            application/json:
+              type: object
+              properties:
+                status:
+                  type: boolean
+                  description: stav požadavku
+                error:
+                  description: chybová hláška
+                  type: string
+              example: |
+                {
+                  "status": false,
+                  "error": "Authorization header is missing."
+                }
+        403:
+          body:
+            application/json:
+              type: object
+              properties:
+                status:
+                  type: boolean
+                  description: stav požadavku
+                error:
+                  description: chybová hláška
+                  type: string
+              example: |
+                {
+                  "status": false,
+                  "error": "Authorization header is not valid."
+                }
+        500:
+          body:
+            application/json:
+              type: object
+              properties:
+                status:
+                  type: boolean
+                  description: stav požadavku
+                error:
+                  description: chybová hláška
+                  type: string
+              example: |
+                {
+                  "status": false,
+                  "error": "Internal server error."
+                }
+    /photo:
+      post:
+        description: "Přidání refotografie k místu"
+        body:
+          application/json:
+            properties:
+              file:
+                description: Soubor s refotografií
+                type: file
+        responses:
+          200:
+            body:
+              application/json:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    description: stav požadavku
+                example: |
+                  {
+                    "status": true
+                  }
+          401:
+            body:
+              application/json:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    description: stav požadavku
+                  error:
+                    description: chybová hláška
+                    type: string
+                example: |
+                  {
+                    "status": false,
+                    "error": "Authorization header is missing."
+                  }
+          403:
+            body:
+              application/json:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    description: stav požadavku
+                  error:
+                    description: chybová hláška
+                    type: string
+                example: |
+                  {
+                    "status": false,
+                    "error": "Authorization header is not valid."
+                  }
+          500:
+            body:
+              application/json:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    description: stav požadavku
+                  error:
+                    description: chybová hláška
+                    type: string
+                example: |
+                  {
+                    "status": false,
+                    "error": "Internal server error."
+                  }
+      /{id_photo}:
+        uriParameters:
+          id_photo:
+            type: integer
+            description: "ID refotografie"
+            example: 3
+        delete:
+          description: "Smazání refotografie"
+          responses:
+            200:
+              body:
+                application/json:
+                  type: object
+                  properties:
+                    status:
+                      type: boolean
+                      description: stav požadavku
+                  example: |
+                    {
+                      "status": true
+                    }
+            401:
+              body:
+                application/json:
+                  type: object
+                  properties:
+                    status:
+                      type: boolean
+                      description: stav požadavku
+                    error:
+                      description: chybová hláška
+                      type: string
+                  example: |
+                    {
+                      "status": false,
+                      "error": "Authorization header is missing."
+                    }
+            403:
+              body:
+                application/json:
+                  type: object
+                  properties:
+                    status:
+                      type: boolean
+                      description: stav požadavku
+                    error:
+                      description: chybová hláška
+                      type: string
+                  example: |
+                    {
+                      "status": false,
+                      "error": "Authorization header is not valid."
+                    }
+            500:
+              body:
+                application/json:
+                  type: object
+                  properties:
+                    status:
+                      type: boolean
+                      description: stav požadavku
+                    error:
+                      description: chybová hláška
+                      type: string
+                  example: |
+                    {
+                      "status": false,
+                      "error": "Internal server error."
+                    }

@@ -2,6 +2,7 @@ namespace: api
 
 include:
     - modules/v1
+    - modules/v2
 paths:
     log: console/runtime/logs
 settings:

@@ -109,6 +109,10 @@ return [
             'basePath' => '@api/modules/v1',
             'class' => 'api\modules\v1\Module',
         ],
+        'v2' => [
+            'basePath' => '@api/modules/v2',
+            'class' => 'api\modules\v2\Module',
+        ],
     ],
     'params' => $params,
 ];
