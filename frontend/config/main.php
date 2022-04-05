@@ -214,6 +214,11 @@ return [
                     'priority' => 0.4,
                 ],
                 [
+                    'loc' => '/user/check-login',
+                    'changefreq' => SitemapBehavior::CHANGEFREQ_MONTHLY,
+                    'priority' => 0.4,
+                ],
+                [
                     'loc' => '/editor',
                     'changefreq' => SitemapBehavior::CHANGEFREQ_MONTHLY,
                     'priority' => 0.7,

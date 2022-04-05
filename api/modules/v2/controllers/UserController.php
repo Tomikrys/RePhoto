@@ -29,9 +29,6 @@ class UserController extends \api\components\ApiController
         }
 
         return $user->getApiStatusData();
-
-
-        return $user->getApiStatusData();
     }
 
     public function actionLogout()
@@ -49,6 +46,17 @@ class UserController extends \api\components\ApiController
         }
 
         return [];
+    }
+
+    public function actionCheckLogin()
+    {
+        $auth = explode(' ', \Yii::$app->request->headers->get('authorization'));
+        $token = $auth[1] ?? false;
+        $user = User::findOne(['access_token' => $token]);
+        if (!$user) {
+            throw new HttpException(401, 'token is not valid');
+        }
+        return $user->getApiStatusData();
     }
 
 

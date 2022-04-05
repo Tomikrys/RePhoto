@@ -33,5 +33,3 @@ phpunit.phar
 
 # vagrant runtime
 /.vagrant
-
-/#elasticsearch-6.2.4
