@@ -72,7 +72,7 @@ $this->showHeader = false;
                 </div>
 
                 <div class="col s4 no-padding text-right">
-                    <button class="btn waves-effect waves-light" type="submit" name="action" data-form="form-login">
+                    <button class="btn waves-effect waves-light" type="submit" name="action" data-form="form-register">
                         Register
                         <i class="material-icons right">send</i>
                     </button>

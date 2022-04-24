@@ -121,7 +121,7 @@ class UserController extends FrontendController
         }
 
         # save referrer to session for further redirection
-        \Yii::$app->session->set('login-referrer', \Yii::$app->request->referrer);
+        \Yii::$app->session->set('register-referrer', \Yii::$app->request->referrer);
 
         return $this->render('register', [
             'model' => $model,
@@ -234,9 +234,9 @@ class UserController extends FrontendController
     public function actionLoginFacebook($code, $state)
     {
         $fb = new Facebook([
-            'app_id' => '152685308829098', // Replace {app-id} with your app id
-            'app_secret' => '921a1001a42fde928d8be54055a6c283',
-            'default_graph_version' => 'v2.11',
+            'app_id' => '565478641410955', // Replace {app-id} with your app id
+            'app_secret' => '8d639ae41ce6e5f3469b34db9e453a7d',
+            'default_graph_version' => 'v13.0',
         ]);
 
         $helper = $fb->getRedirectLoginHelper();

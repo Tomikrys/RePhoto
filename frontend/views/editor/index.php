@@ -5,7 +5,8 @@ $this->title = "Editor";
 $this->h1 = $this->title;
 $this->bodyClasses[] = 'editor';
 
-$this->registerCss(<<<CSS
+$this->registerCss(
+    <<<CSS
     #editor {
         height: 100%;
         background: #333;
@@ -180,70 +181,96 @@ $this->registerCss(<<<CSS
         /*width: calc(100% - 300px);*/
         /*height: 100%;*/
     }
+
+    .delete_button {
+        margin: 0 0 0 auto !important;
+        background-color: transparent;
+        background-repeat: no-repeat;
+        border: none;
+        cursor: pointer;
+        overflow: hidden;
+        outline: none;
+    }
+
+    .visibility_checkbox {    
+        position: relative !important;
+        opacity: 100 !important;
+        pointer-events: auto !important;
+        margin: 0 14px 0 0 !important;
+    }
+
+    .images-box li {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+    }
+}
+
+
 CSS
 );
 
 ?>
-    <div id="editor">
-        <div class="editor-top-toolbar">
-            <ul class="tools">
-                <li><a href="#" class="undo-btn disabled" title="undo"><i class="material-icons">undo</i></a></li>
-                <li><a href="#" class="redo-btn disabled" title="redo"><i class="material-icons">redo</i></a></li>
-                <li><span class="divider"></span></li>
-            </ul>
-            <ul class="tools">
-                <li><a href="#" class="zoom-out-btn" title="zoom out"><i class="material-icons">zoom_out</i></a></li>
-                <li><input class="zoom" name="zoom" value="100%" title="zoom"></li>
-                <li><a href="#" class="zoom-in-btn" title="zoom in"><i class="material-icons">zoom_in</i></a></li>
-                <li><span class="divider"></span></li>
-            </ul>
-            <ul class="tools active-tools">
-                <!-- TODO rename titles -->
-                <li><i class="material-icons move-btn active" title="open with">open_with</i></li>
-                <li><i class="material-icons resize-btn" title="photo size select large">photo_size_select_large</i></li>
-                <li><i class="material-icons rotate-btn" title="rotate left">rotate_left</i></li>
-                <li><i class="material-icons path-btn" title="format shapes">format_shapes</i></li>
-                <li><i class="material-icons download-image" title="file download">file_download</i></li>
-                <li><i class="material-icons save-image" title="save">save</i></li>
-            </ul>
+<div id="editor">
+    <div class="editor-top-toolbar">
+        <ul class="tools">
+            <li><a href="#" class="undo-btn disabled" title="undo"><i class="material-icons">undo</i></a></li>
+            <li><a href="#" class="redo-btn disabled" title="redo"><i class="material-icons">redo</i></a></li>
+            <li><span class="divider"></span></li>
+        </ul>
+        <ul class="tools">
+            <li><a href="#" class="zoom-out-btn" title="zoom out"><i class="material-icons">zoom_out</i></a></li>
+            <li><input class="zoom" name="zoom" value="100%" title="zoom"></li>
+            <li><a href="#" class="zoom-in-btn" title="zoom in"><i class="material-icons">zoom_in</i></a></li>
+            <li><span class="divider"></span></li>
+        </ul>
+        <ul class="tools active-tools">
+            <!-- TODO rename titles -->
+            <li><i class="material-icons move-btn active" title="open with">open_with</i></li>
+            <li><i class="material-icons resize-btn" title="photo size select large">photo_size_select_large</i></li>
+            <li><i class="material-icons rotate-btn" title="rotate left">rotate_left</i></li>
+            <li><i class="material-icons path-btn" title="format shapes">format_shapes</i></li>
+            <li><i class="material-icons download-image" title="file download">file_download</i></li>
+            <li><i class="material-icons save-image" title="save">save</i></li>
+        </ul>
+    </div>
+    <div class="editor-main">
+        <div class="editor-content">
+            <div>
+                <canvas id="editor-canvas" width="1200" height="480"></canvas>
+            </div>
         </div>
-        <div class="editor-main">
-            <div class="editor-content">
-                <div>
-                    <canvas id="editor-canvas" width="1200" height="480"></canvas>
-                </div>
+
+        <div class="editor-right-toolbar">
+            <div class="history">
+                <span class="heading">History</span>
+                <ul class="history-box"></ul>
             </div>
 
-            <div class="editor-right-toolbar">
-                <div class="history">
-                    <span class="heading">History</span>
-                    <ul class="history-box"></ul>
-                </div>
-
-                <div class="images">
-                    <span class="heading">Images</span>
-                    <ul class="images-box ui-sortable"></ul>
-                </div>
+            <div class="images">
+                <span class="heading">Images</span>
+                <ul class="images-box ui-sortable"></ul>
             </div>
         </div>
     </div>
+</div>
 <script>
     var canvas;
 </script>
+
 <?php
 $imagesJS = '';
 foreach ($photos as $photo) {
     $imagesJS .= <<<JS
-
-        var image_src = new CanvasImage('{$photo->url}');
+        var image_src = new CanvasImage('{$photo->url}', canvas, {$photo->id});
+        console.log("image added")
         image_src.id = {$photo->id}
         canvas.addObject(image_src);
 
 JS;
 }
-
-
-$this->registerJs(<<<JS
+$this->registerJs(
+    <<<JS
 
     $(".download-image").on('click', function(){
         exportCanvasAsPNG();
@@ -263,7 +290,6 @@ $this->registerJs(<<<JS
     
     $(document).ready(function() {
         canvas = new Canvas('editor');
-
         {$imagesJS}
     });
 JS

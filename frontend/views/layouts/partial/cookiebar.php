@@ -11,7 +11,7 @@ if (!Yii::$app->user->isGuest){
 ?>
 
 
-<? if (!$cookie_confirmed): ?>
+<?php if (!$cookie_confirmed): ?>
     <div id="cookie-bar">
         <i class="material-icons left" style="font-size: 20px;">warning</i>
         <?= Yii::t('app/cookie', 'This website uses cookies to improve web browsing and other features.') ?>
@@ -44,4 +44,4 @@ if (!Yii::$app->user->isGuest){
 JS
     )
     ?>
-<? endif; ?>
+<?php endif; ?>

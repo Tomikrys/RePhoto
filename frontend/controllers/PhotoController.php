@@ -63,7 +63,7 @@ class PhotoController extends FrontendController
                 throw new NotFoundHttpException('Fotografie neexistuje');
             }
 
-            return $this->render('@frontend/views/map/index', [
+            return $this->render('@frontend/views/photo/detail', [
                 'photo' => $photo,
             ]);
         }
@@ -151,6 +151,20 @@ class PhotoController extends FrontendController
         return $this->render('edit', [
             'photo' => $photo,
         ]);
+    }
+
+    /**
+     * Deletes an existing Photo model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionDelete($id)
+    {
+        $this->findModel($id)->delete();
+
+        return $this->redirect(['index']);
     }
 
     /**

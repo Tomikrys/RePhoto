@@ -6,13 +6,13 @@
 ?>
 
 <?php if (empty($places)): ?>
-    <? if ($page == 1): ?>
+    <?php if ($page == 1): ?>
         <div class="col m12 no-result">
             <i class="material-icons">place</i>
             <p>V této oblasti se nenacházejí žádné fotografie.</p>
             <p>Přidejte nové nebo vyhledejte jíné místo na mapě.</p>
         </div>
-    <? endif; ?>
+    <?php endif; ?>
 
 <?php else: ?>
     <?php foreach ($places as $place): ?>
@@ -54,7 +54,7 @@
     </div>
 <?php endif; ?>
 
-<? $this->registerJs(<<<JS
+<?php $this->registerJs(<<<JS
     // TODO refactor events to places
    
     $('.photo.preview').on('click', function(e){

@@ -24,6 +24,7 @@ $this->bodyClasses[] = 'profile';
                 <ul class="user-navigation">
                     <li><a href="<?= \yii\helpers\Url::to(['profile']) ?>">Personal info</a></li>
                     <li><a href="<?= \yii\helpers\Url::to(['uploaded-photos']) ?>">Uploaded photos</a></li>
+                    <li><a href="<?= \yii\helpers\Url::to('/photo/unpublished') ?>">Unpublished photos</a></li>
                 </ul>
 
                 <hr>

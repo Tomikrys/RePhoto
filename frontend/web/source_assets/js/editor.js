@@ -38,7 +38,7 @@ function Canvas(editor_id) {
 
     this.objects = [];
     this.historyPointer = 0;
-    this.history = [{state: "start", objects: []}];
+    this.history = [{ state: "start", objects: [] }];
 
     this.needRefresh = false;
     this.editingObject = false;
@@ -264,23 +264,23 @@ Canvas.prototype.endPath = function () {
     var width = maxX - minX;
     var height = maxY - minY;
 
-    if (width > this.width){
+    if (width > this.width) {
         width = this.width;
     }
-    if (height > this.height){
+    if (height > this.height) {
         height = this.height;
     }
 
-    var mask=document.createElement('canvas');
-    var mctx=mask.getContext('2d');
+    var mask = document.createElement('canvas');
+    var mctx = mask.getContext('2d');
 
-    mask.width=this.width;
-    mask.height=this.height;
+    mask.width = this.width;
+    mask.height = this.height;
 
-    mctx.shadowColor='black';
-    mctx.shadowOffsetX=0;
-    mctx.shadowOffsetY=0;
-    mctx.shadowBlur=20;
+    mctx.shadowColor = 'black';
+    mctx.shadowOffsetX = 0;
+    mctx.shadowOffsetY = 0;
+    mctx.shadowBlur = 20;
 
     mctx.beginPath();
     mctx.moveTo(this.pathPoints[0].x, this.pathPoints[0].y);
@@ -289,8 +289,8 @@ Canvas.prototype.endPath = function () {
         mctx.lineTo(p.x, p.y);
     }
     mctx.closePath();
-    mctx.strokeSyle="#000";
-    mctx.fillStyle='black';
+    mctx.strokeSyle = "#000";
+    mctx.fillStyle = 'black';
     mctx.fill();
     mctx.fill();
     mctx.fill();
@@ -301,8 +301,8 @@ Canvas.prototype.endPath = function () {
     this.refresh();
 
     // this.context.clearRect(0, 0, this.width, this.height);
-    this.context.globalCompositeOperation='destination-in';
-    this.context.drawImage(mask,0,0);
+    this.context.globalCompositeOperation = 'destination-in';
+    this.context.drawImage(mask, 0, 0);
 
     // create a new canvas
     var c = document.createElement('canvas');
@@ -321,7 +321,7 @@ Canvas.prototype.endPath = function () {
     image_src.height = c.height;
     image_src.x = minX;
     image_src.y = minY;
-    image_src.center = {x: image_src.width / 2, y: image_src.height / 2};
+    image_src.center = { x: image_src.width / 2, y: image_src.height / 2 };
     this.addObject(image_src);
 
     // clear the previous points
@@ -431,8 +431,8 @@ Canvas.prototype.getMouseCanvasPosition = function (e) {
 
     var x = e.clientX + scrollLeft - (scrollLeft > 0 ? $('.editor-content').offset().left : $(this.canvas).offset().left);
     var y = e.clientY + scrollTop - (scrollTop > 0 ? $('.editor-content').offset().top : $(this.canvas).offset().top);
-    
-    return {x: x, y: y};
+
+    return { x: x, y: y };
 };
 
 Canvas.prototype.selectObject = function (x, y) {
@@ -449,6 +449,7 @@ Canvas.prototype.selectObject = function (x, y) {
 Canvas.prototype.draw = function () {
     // draw objects into canvas
     var objectsLength = this.objects.length;
+    console.log("objectsLength: " + objectsLength);
     for (var i = 0; i < objectsLength; ++i) {
         this.objects[i].draw(this.context);
     }
@@ -531,6 +532,7 @@ Canvas.prototype.changeHistoryPointer = function (value) {
     this.objects = this.history[this.historyPointer].objects;
 
     this.refreshHistoryBox();
+    this.refreshImagesBox();
     this.refresh();
 };
 
@@ -556,7 +558,7 @@ Canvas.prototype.addHistoryState = function (state) {
         objectsCopy.push(Object.assign(new CanvasImage(), this.objects[i]));
     }
 
-    this.history.push({state: state, objects: objectsCopy});
+    this.history.push({ state: state, objects: objectsCopy });
     this.refreshHistoryBox();
 };
 
@@ -565,9 +567,9 @@ Canvas.prototype.refreshImagesBox = function () {
 
     var l = this.objects.length;
     for (var i = l - 1; i >= 0; i--) {
+
         var list = document.createElement('li');
-        list.dataset.index = i;
-        list.appendChild(this.objects[i].image);
+
 
         // append opacity input
         var input = document.createElement('input');
@@ -575,11 +577,52 @@ Canvas.prototype.refreshImagesBox = function () {
         input.max = 100;
         input.value = "100%";
         input.classList.add('opacity');
+
+        var visible = document.createElement("input");
+        visible.classList.add("visibility_checkbox");
+        visible.setAttribute("type", "checkbox");
+        visible.checked = true;
+        visible.this = this;
+        visible.i = i;
+        visible.input = input;
+        visible.addEventListener("click", function (evt) {
+            if (this.checked) {
+                evt.currentTarget.this.changeObjectOpacity (evt.currentTarget.i, "100", evt.currentTarget.input);
+            } else {
+                evt.currentTarget.this.changeObjectOpacity (evt.currentTarget.i, "0", evt.currentTarget.input);
+            }
+            evt.currentTarget.this.addHistoryState('hide layer');
+        });
+
+        list.setAttribute('id', this.objects[i].id);
+        list.dataset.index = i;
+
+        var del = document.createElement("button");
+        del.classList.add("delete_button");
+        del.setAttribute('id', this.objects[i].id);
+        del.innerHTML = "❌";
+        del.this = this;
+        del.i = i;
+        del.addEventListener("click", function (evt) {
+            evt.currentTarget.this.remove_layer(evt.currentTarget.i);
+        });
+
+        list.appendChild(visible);
+        list.appendChild(this.objects[i].image);
         list.appendChild(input);
+        list.appendChild(del);
+
 
         this.imagesBox.append(list);
     }
 };
+
+Canvas.prototype.remove_layer = function (i) {
+    this.objects.splice(i, 1);
+    this.addHistoryState('remove layer');
+    this.refreshImagesBox();
+    this.refresh();
+}
 
 /**
  * Add actual state into history, clear objects and redraw canvas.
@@ -615,18 +658,18 @@ function imageSize(url) {
     const img = document.createElement("img");
 
     const promise = new Promise((resolve, reject) => {
-      img.onload = () => {
-        // Natural size is the actual image size regardless of rendering.
-        // The 'normal' `width`/`height` are for the **rendered** size.
-        const width  = img.naturalWidth;
-        const height = img.naturalHeight; 
+        img.onload = () => {
+            // Natural size is the actual image size regardless of rendering.
+            // The 'normal' `width`/`height` are for the **rendered** size.
+            const width = img.naturalWidth;
+            const height = img.naturalHeight;
 
-        // Resolve promise with the width and height
-        resolve({width, height});
-      };
+            // Resolve promise with the width and height
+            resolve({ width, height });
+        };
 
-      // Reject promise on error
-      img.onerror = reject;
+        // Reject promise on error
+        img.onerror = reject;
     });
 
     // Setting the source makes it start downloading and eventually call `onload`
@@ -635,7 +678,9 @@ function imageSize(url) {
     return promise;
 }
 
-function CanvasImage(src) {
+function CanvasImage(src, canvas, photo_id) {
+    console.log("src " + src)
+    console.log("photo_id " + photo_id)
     this.id = null;
     this.x = 0;
     this.y = 0;
@@ -643,22 +688,8 @@ function CanvasImage(src) {
     this.image = new Image();
     this.image.src = src;
     this.opacity = 1;
-    
-    (async() => {
-        const imageDimensions = await imageSize(src);
-        console.log(this.width);
-        console.log(imageDimensions.width)
-        if (this.width === undefined || this.width < imageDimensions.width) {
-            this.width = imageDimensions.width;
-        }
-        if (this.height === undefined || this.height < imageDimensions.height) {
-            this.height = imageDimensions.height;
-        }
-        this.center = {x: this.width / 2, y: this.height / 2};
-    })(this);
 
     this.rotation = 0;
-
 
     this.moving = false;
     this.rotating = false;
@@ -671,6 +702,25 @@ function CanvasImage(src) {
     this.activeImage = "main";
     this.imageMain = this.image;
     this.imageTransformed = null;
+
+    this.width = this.image.width;
+    this.height = this.image.height;
+    this.center = { x: this.width / 2, y: this.height / 2 };
+
+    // (async () => {
+    //     console.log("src: " + src);
+    //     const imageDimensions = await imageSize(src);
+    //     if (this.width === undefined || this.width < imageDimensions.width) {
+    //         this.width = imageDimensions.width;
+    //     }
+    //     if (this.height === undefined || this.height < imageDimensions.height) {
+    //         this.height = imageDimensions.height;
+    //     }
+    //     this.center = {x: this.width / 2, y: this.height / 2};
+    //     this.id = photo_id;
+    //     canvas.addObject(this);
+    //     console.log("added " + photo_id)
+    // })(src, this, canvas, photo_id);
 }
 
 CanvasImage.prototype.toggleActiveImage = function (context, input) {
@@ -690,7 +740,7 @@ CanvasImage.prototype.toggleActiveImage = function (context, input) {
                 }
             }
 
-            $.get('/editor/homography', {id_main: id_main, id_transform: this.id}, function (data) {
+            $.get('/editor/homography', { id_main: id_main, id_transform: this.id }, function (data) {
                 image.imageTransformed = new Image();
                 image.imageTransformed.src = data.url;
 
@@ -735,6 +785,7 @@ Canvas.prototype.saveImage = function () {
 // };
 
 CanvasImage.prototype.draw = function (context) {
+    console.log(this);
     var opacity = null;
     if (this.opacity !== 1) {
         opacity = context.globalAlpha;
@@ -743,6 +794,7 @@ CanvasImage.prototype.draw = function (context) {
 
     context.save();
 
+    console.log("this.center: " + this.center);
     context.translate(this.x + this.center.x, this.y + this.center.y);
     context.rotate(this.rotation);
 

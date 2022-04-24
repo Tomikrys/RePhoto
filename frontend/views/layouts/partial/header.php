@@ -13,7 +13,7 @@ use yii\helpers\Url;
                 <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                     <a itemprop="item" href="<?= Url::to(['/'], true) ?>" class="logo">
                         <span itemprop="name">
-                            <img src="/img/logo_e.png">
+                            <img src="/img/logo_e.png" height="62px">
                             <span class="hide-on-small-and-down">RePhoto</span>
                         </span>
                     </a>
@@ -49,9 +49,6 @@ use yii\helpers\Url;
                 <li><a class="waves-effect waves-light" href="<?= Url::to(['/map']) ?>"><?= Yii::t('app/menu', 'Map') ?></a>
                 </li>
 
-                <li>
-                    <a class="waves-effect waves-light" href="<?= Url::to(['/takephoto']) ?>"><?= Yii::t('app/menu', 'Take Photo') ?></a>
-                </li>
                 <li>
                     <a class="waves-effect waves-light" href="<?= Url::to(['/place/create']) ?>"><?= Yii::t('app/menu', 'Add Photo') ?></a>
                 </li>

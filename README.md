@@ -13,6 +13,7 @@ php yii migrate
 php yii elasticsearch/init
 
 run-elastic.bat
+  // or run bin/elastic.bat in https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.2.4.zip
 run.bat
     
 je potřeba mít nainstalovaný Python 2.7, PHP 7.1, MariaDB 10.2, Elasticsearch 6.2 a případná rozšíření požadovaná při spuštění: composer install

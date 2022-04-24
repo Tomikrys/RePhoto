@@ -100,7 +100,7 @@ $this->bodyClasses[] = 'map';
                 <p><?= Yii::t('app/map', 'Looking for places, please wait.') ?></p>
             </div>
 
-            <? //= $this->render('partial/places', ['places' => $places]) ?>
+            <?php //= $this->render('partial/places', ['places' => $places]) ?>
         </div>
 
         <a href="<?= \yii\helpers\Url::to(['/place/create']) ?>" id="add-place-btn" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>

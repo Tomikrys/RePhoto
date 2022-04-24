@@ -67,17 +67,21 @@ $this->bodyClasses[] = 'place-detail';
             </div>
 
             <div class="actions">
-                <a class="btn waves-effect waves-light btn-flat" style="margin-top: 5px;" data-pjax="0" href="<?= \yii\helpers\Url::to(['/place/update', 'id_place' => $place->id]) ?>">
-                    Edit place
-                </a>
+                <?php if ($place['user'] && Yii::$app->user->identity && $place['user']['id'] == Yii::$app->user->identity->id) { ?>
+                    <a class="btn waves-effect waves-light btn-flat" style="margin-top: 5px;" data-pjax="0" href="<?= \yii\helpers\Url::to(['/place/update', 'id_place' => $place->id]) ?>">
+                        Edit place
+                    </a>
+                <?php } ?>
 
                 <a class="btn waves-effect waves-light" style="margin-top: 5px;" href="<?= \yii\helpers\Url::to(['/place/upload-photo', 'id_place' => $place->id]) ?>">
                     Add new rephoto
                 </a>
-                <!-- TODO functionality -->
-                <a class="btn waves-effect waves-light red" style="margin-top: 5px;" href="<?= \yii\helpers\Url::to(['/place/upload-photo', 'id_place' => $place->id]) ?>">
-                    Delete place
-                </a>
+                <?php if ($place['user'] &&  Yii::$app->user->identity && $place['user']['id'] == Yii::$app->user->identity->id) { ?>
+                    <!-- TODO functionality -->
+                    <a class="btn waves-effect waves-light red" style="margin-top: 5px;" href="<?= \yii\helpers\Url::to(['/place/upload-photo', 'id_place' => $place->id]) ?>">
+                        Delete place
+                    </a>
+                <?php } ?>
             </div>
         </div>
     </div>

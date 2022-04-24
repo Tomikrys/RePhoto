@@ -91,9 +91,9 @@ return [
                 ['pattern' => 'sitemap', 'route' => 'sitemap/default/index', 'suffix' => '.xml'],
                 
                 'map' => 'map/index',
-                'takephoto' => 'takephoto/index',
                 'editor' => 'editor/index',
                 'places/<id:\d+>' => 'place/view',
+                'photos/<id:\d+>' => 'photo/edit',
                 'places/photo/<id_photo:\d+>/review' => 'place/review-photo',
                 'places/photo/<id_photo:\d+>/align' => 'place/align-photo',
                 'places/photo/<id_photo:\d+>/confirm' => 'place/confirm-photo',

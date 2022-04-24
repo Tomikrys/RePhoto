@@ -25,7 +25,7 @@
     </div>
 </div>
 
-<?
+<?php
 $uploadURL = \yii\helpers\Url::to(['/photo/upload']);
 $this->registerJS(<<<JS
     var myDropzone = new Dropzone(".dropzone", { url: "$uploadURL"});
