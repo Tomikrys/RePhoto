@@ -588,10 +588,11 @@ Canvas.prototype.refreshImagesBox = function () {
         visible.addEventListener("click", function (evt) {
             if (this.checked) {
                 evt.currentTarget.this.changeObjectOpacity (evt.currentTarget.i, "100", evt.currentTarget.input);
+                evt.currentTarget.this.addHistoryState('show layer');
             } else {
                 evt.currentTarget.this.changeObjectOpacity (evt.currentTarget.i, "0", evt.currentTarget.input);
+                evt.currentTarget.this.addHistoryState('hide layer');
             }
-            evt.currentTarget.this.addHistoryState('hide layer');
         });
 
         list.setAttribute('id', this.objects[i].id);
