@@ -1,6 +1,9 @@
 <?php
 /* @var $this yii\web\View */
 
+use yii\helpers\Url;
+use common\models\Photo;
+
 $this->title = "Editor";
 $this->h1 = $this->title;
 $this->bodyClasses[] = 'editor';
@@ -211,6 +214,7 @@ CSS
 );
 
 ?>
+
 <div id="editor">
     <div class="editor-top-toolbar">
         <ul class="tools">
@@ -232,6 +236,21 @@ CSS
             <li><i class="material-icons path-btn" title="format shapes">format_shapes</i></li>
             <li><i class="material-icons download-image" title="file download">file_download</i></li>
             <li><i class="material-icons save-image" title="save">save</i></li>
+            <li>
+                <?php
+                foreach ($photos as $photo) {
+                    $form = \yii\bootstrap\ActiveForm::begin([
+                        'id' => 'remove_photo',
+                        'method' => 'get',
+                        'action' => Photo::removeFromEditor($photo->id),
+                    ]);
+
+                    echo "<button id='remove-$photo->id'>odebrat $photo->id</button>";
+
+                    \yii\bootstrap\ActiveForm::end();
+                }
+                ?>
+            </li>
         </ul>
     </div>
     <div class="editor-main">
@@ -257,6 +276,11 @@ CSS
 <script>
     var canvas;
 </script>
+
+<section class="hidden">
+    <?php
+    ?>
+</section>
 
 <?php
 $imagesJS = '';
