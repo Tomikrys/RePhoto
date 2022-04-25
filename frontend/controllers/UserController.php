@@ -333,4 +333,13 @@ class UserController extends FrontendController
             'dataProvider' => $dataProvider,
         ]);
     }
+
+    public function actionUnalignedPhotos(){
+        $photoSearch = new PhotoSearch();
+        $dataProvider = $photoSearch->searchUnaligned(Yii::$app->user->id, Yii::$app->request->queryParams);
+
+        return $this->render('uploaded_photos', [
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 }

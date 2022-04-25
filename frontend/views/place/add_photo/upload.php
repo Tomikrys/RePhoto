@@ -17,8 +17,8 @@ $this->bodyClasses[] = 'place-add-photo';
 
     <section class="container">
         <div class="white-box">
-            <h2>Upload File</h2>
-            <p>Upload new photo of <i><?= $place->name ?></i> here or select one of <a href="#previous-uploaded">previously uploaded.</a></p>
+            <h2><?= Yii::t('app/place', 'Upload File') ?></h2>
+            <p><?= Yii::t('app/place', 'Upload new photo of') ?> <i><?= $place->name ?></i> <?= Yii::t('app/place', 'here or select one of') ?> <a href="#previous-uploaded"><?= Yii::t('app/place', 'previously uploaded.') ?></a></p>
 
             <?php $form = \yii\bootstrap\ActiveForm::begin([
                 'id' => 'form-profile',
@@ -30,7 +30,7 @@ $this->bodyClasses[] = 'place-add-photo';
             <?= $form->field($uploadForm, 'file')->fileInput()->label(false) ?>
 
             <div class="actions">
-                <button class="btn waves-effect waves-light">Upload</button>
+                <button class="btn waves-effect waves-light"><?= Yii::t('app/place', 'Upload') ?></button>
             </div>
 
             <?php \yii\bootstrap\ActiveForm::end(); ?>
@@ -41,8 +41,8 @@ $this->bodyClasses[] = 'place-add-photo';
 <?php if (!empty($unpublishedPhotos)): ?>
     <section id="previous-uploaded" class="container">
         <div class="white-box">
-            <h2>Previously uploaded files</h2>
-            <p>These images are not aligned and published.</p>
+            <h2><?= Yii::t('app/place', 'Previously uploaded files') ?></h2>
+            <p><?= Yii::t('app/place', 'These images are not aligned and published.') ?></p>
         </div>
 
         <div class="horizontal-scroll-box">
@@ -54,7 +54,7 @@ $this->bodyClasses[] = 'place-add-photo';
                     <div class="card-action">
                         <a href="<?= \yii\helpers\Url::to(['/place/review-photo', 'id_photo' => $photo['id']]) ?>"
                            class="teal-text"
-                           data-pjax="0">Select</a>
+                           data-pjax="0"><?= Yii::t('app/place', 'Select') ?></a>
                     </div>
                 </div>
             <?php endforeach; ?>

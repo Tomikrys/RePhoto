@@ -26,12 +26,12 @@ $wishlisted = $photo->loggedUserWishList !== null;
         <i class="material-icons add-to-editor-btn <?= $photo->getIsInEditorList() ? 'active' : '' ?>">format_shapes</i>
 
         <div class="info">
-            <span class="label">Název</span>
+            <span class="label"><?= Yii::t('app/photo', 'Name') ?></span>
             <span class="content"><?= $photo->name ?></span>
         </div>
 
         <div class="info">
-            <span class="label">Pozice fotografa</span>
+            <span class="label"><?= Yii::t('app/photo', 'Position of photographer') ?></span>
             <span class="content"><?= $photo->latitude . " / " . $photo->longitude ?></span>
         </div>
 

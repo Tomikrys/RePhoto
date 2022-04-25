@@ -128,10 +128,10 @@ class PlaceController extends FrontendController
                 fclose($temp_file);
                 chmod($tmpPath, 0755);
                 // TODO define python path in config
-                $command = "$root/python27/python.exe $root/homography-transformation-points.py $mainImgPath $transformingImgPath $root\\frontend\\web$transformedImagePath $tmpPath 2>&1";
+                $command = "$root/python27/python.exe $root/homography-transformation-points.py $mainImgPath $transformingImgPath $root$transformedImagePath $tmpPath 2>&1";
             } else {
                 // TODO define python path in config
-                $command = "$root/python27/python.exe $root/homography-transformation.py $mainImgPath $transformingImgPath $root\\frontend\\web$transformedImagePath 2>&1";
+                $command = "$root/python27/python.exe $root/homography-transformation.py $mainImgPath $transformingImgPath $root$transformedImagePath 2>&1";
             }
 
             $output = exec($command);
@@ -182,7 +182,7 @@ class PlaceController extends FrontendController
         $output = exec($command);
 
         $data = null;
-        if ($output != "false") {
+        if ($output != "false" && $output != "") {
             $output = str_replace("'", '"', $output);
             $result = json_decode($output, true);
 
@@ -286,7 +286,7 @@ class PlaceController extends FrontendController
                 'thumbnail_url' => $place->oldestPhoto->getThumbnailUrl(),
             ],
             'newest_photo' => [
-                'id' => $place->oldestPhoto->id,
+                'id' => $place->newestPhoto->id,
                 'captured_at' => $place->newestPhoto->captured_at,
                 'thumbnail_url' => $place->newestPhoto->getThumbnailUrl(),
             ],

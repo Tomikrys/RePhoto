@@ -31,13 +31,13 @@ $this->bodyClasses[] = 'place-detail';
                     <table class="table info-table">
                         <tbody>
                             <tr>
-                                <th>Popis</th>
+                                <th><?= Yii::t('app/place', 'Description') ?></th>
                                 <td>
                                     <?= $place->description ?>
                                 </td>
                             </tr>
                             <tr>
-                                <th>GPS</th>
+                                <th><?= Yii::t('app/place', 'GPS') ?></th>
                                 <td><?= $place->latitude ?> / <?= $place->longitude ?></td>
                             </tr>
                         </tbody>
@@ -48,13 +48,13 @@ $this->bodyClasses[] = 'place-detail';
                     <table class="table info-table">
                         <tbody>
                             <tr>
-                                <th>Autor</th>
+                                <th><?= Yii::t('app/place', 'Author') ?></th>
                                 <td>
                                     <a href="<?= \yii\helpers\Url::to(['/user/public-profile', 'id' => $photos[0]['user']['id']]) ?>"><?= $photos[0]['user']['name'] ?></a>
                                 </td>
                             </tr>
                             <tr>
-                                <th>Zachyceno</th>
+                                <th><?= Yii::t('app/place', 'Captured') ?></th>
                                 <td><?= Yii::$app->formatter->asDate($photos[0]['captured_at'], 'Y') ?></td>
                             </tr>
                         </tbody>
@@ -69,17 +69,17 @@ $this->bodyClasses[] = 'place-detail';
             <div class="actions">
                 <?php if ($place['user'] && Yii::$app->user->identity && $place['user']['id'] == Yii::$app->user->identity->id) { ?>
                     <a class="btn waves-effect waves-light btn-flat" style="margin-top: 5px;" data-pjax="0" href="<?= \yii\helpers\Url::to(['/place/update', 'id_place' => $place->id]) ?>">
-                        Edit place
+                    <?= Yii::t('app/place', 'Edit place') ?>
                     </a>
                 <?php } ?>
 
                 <a class="btn waves-effect waves-light" style="margin-top: 5px;" href="<?= \yii\helpers\Url::to(['/place/upload-photo', 'id_place' => $place->id]) ?>">
-                    Add new rephoto
+                    <?= Yii::t('app/place', 'Add new rephoto') ?>
                 </a>
                 <?php if ($place['user'] &&  Yii::$app->user->identity && $place['user']['id'] == Yii::$app->user->identity->id) { ?>
                     <!-- TODO functionality -->
                     <a class="btn waves-effect waves-light red" style="margin-top: 5px;" href="<?= \yii\helpers\Url::to(['/place/upload-photo', 'id_place' => $place->id]) ?>">
-                        Delete place
+                    <?= Yii::t('app/place', 'Delete place') ?>
                     </a>
                 <?php } ?>
             </div>

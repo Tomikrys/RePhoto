@@ -8,7 +8,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-$this->title = 'create place';
+$this->title = Yii::t('app/place', 'Create place');
 $this->bodyClasses[] = 'place';
 
 \frontend\assets\GoogleMapAsset::register($this);

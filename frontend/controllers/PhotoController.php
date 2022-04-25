@@ -95,6 +95,9 @@ class PhotoController extends FrontendController
             $photo = new Photo();
             $photo->setAttributesFromFile($file);
             $photo->setExifDataFromFile($file);
+            // TODO unaligned, unvisible
+            // $photo->aligned = 0;
+            // $photo->visible = 0;
 
             $trans = \Yii::$app->db->beginTransaction();
             if ($photo->save()) {
@@ -177,6 +180,20 @@ class PhotoController extends FrontendController
         $dataProvider = $searchModel->searchUnpublished(\Yii::$app->request->queryParams);
 
         return $this->render('unpublished', [
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * Displays unaligned photos for logged user.
+     * @return string html content
+     */
+    public function actionUnaligned()
+    {
+        $searchModel = new PhotoSearch();
+        $dataProvider = $searchModel->searchUnaligned(\Yii::$app->request->queryParams);
+
+        return $this->render('unaligned', [
             'dataProvider' => $dataProvider,
         ]);
     }

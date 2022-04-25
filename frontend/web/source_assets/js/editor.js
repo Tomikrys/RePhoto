@@ -602,6 +602,7 @@ Canvas.prototype.refreshImagesBox = function () {
         del.classList.add("delete_button");
         del.setAttribute('id', this.objects[i].id);
         del.innerHTML = "❌";
+        del.title = "remove from editor"
         del.this = this;
         del.i = i;
         del.addEventListener("click", function (evt) {

@@ -239,9 +239,19 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->getHiddenPhotos()->exists();
     }
 
+    public function getHasUnalignedPhotos()
+    {
+        return $this->getUnalignedPhotos()->exists();
+    }
+
     public function getHiddenPhotos()
     {
         return $this->hasMany(Photo::className(), ['id_user' => 'id'])->andWhere(['visible' => false]);
+    }
+
+    public function getUnalignedPhotos()
+    {
+        return $this->hasMany(Photo::className(), ['id_user' => 'id'])->andWhere(['aligned' => false]);
     }
 
     public function getName()

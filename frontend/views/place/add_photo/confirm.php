@@ -16,9 +16,9 @@ $this->bodyClasses[] = 'place-add-photo';
 
 <section class="container">
     <div class="white-box">
-        <h2>Confirm photo</h2>
-        <p>Fill additional photo info and after submitting <a href="#form">form</a>, photo will be visible on place
-            page.</p>
+        <h2><?= Yii::t('app/place', 'Confirm photo') ?></h2>
+        <p><?= Yii::t('app/place', 'Fill additional photo info and after submitting <a href="#form">form</a>, photo will be visible on place
+            page.') ?></p>
     </div>
 </section>
 
@@ -62,8 +62,8 @@ $this->bodyClasses[] = 'place-add-photo';
 
     <div class="actions">
         <a href="<?= \yii\helpers\Url::to(['/place/align-photo', 'id_place' => $place->id, 'id_photo' => $photo->id]) ?>"
-           class="btn btn-back">Change alignment</a>
-        <button class="btn waves-effect waves-light">Submit</button>
+           class="btn btn-back"><?= Yii::t('app/place', 'Change alignment') ?></a>
+        <button class="btn waves-effect waves-light"><?= Yii::t('app/place', 'Submit') ?></button>
     </div>
 
     <?php $form::end(); ?>

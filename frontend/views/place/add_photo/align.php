@@ -16,15 +16,13 @@ $this->bodyClasses[] = 'place-add-photo';
 
 <section class="container">
     <div class="white-box">
-        <h2>Manual alignment</h2>
-        <p>Select at least 4 same points by clicking on specific position on one photo and then other. To place
-            marker more
-            accurate click and hold on point to show magnifier glass.</p>
+        <h2><?= Yii::t('app/place', 'Manual alignment') ?></h2>
+        <p><?= Yii::t('app/place', 'Select at least 4 same points by clicking on specific position on one photo and then other. To place marker more accurate click and hold on point to show magnifier glass.') ?></p>
     </div>
 </section>
 
 <section class="container">
-    <button id="delete-points-btn" class="btn btn-primary">Delete all points</button>
+    <button id="delete-points-btn" class="btn btn-primary"><?= Yii::t('app/place', 'Delete all points') ?></button>
 </section>
 
 <section class="container main-info">
@@ -45,9 +43,10 @@ $this->bodyClasses[] = 'place-add-photo';
     </div>
 
     <div class="actions">
-        <a href="<?= \yii\helpers\Url::to(['/place/upload-photo', 'id_place' => $place->id]) ?>" class="btn btn-back">Upload
-            another photo</a>
-        <button class="btn waves-effect waves-light align-btn">Align</button>
+        <a href="<?= \yii\helpers\Url::to(['/place/upload-photo', 'id_place' => $place->id]) ?>" class="btn btn-back">
+            <?= Yii::t('app/place', 'Upload another photo') ?>
+        </a>
+        <button class="btn waves-effect waves-light align-btn"><?= Yii::t('app/place', 'Align') ?></button>
     </div>
 
 </section>

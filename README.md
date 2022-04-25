@@ -18,6 +18,40 @@ run.bat
     
 je potřeba mít nainstalovaný Python 2.7, PHP 7.1, MariaDB 10.2, Elasticsearch 6.2 a případná rozšíření požadovaná při spuštění: composer install
 
+
+
+## vygenerování souborů pro překlad
+```
+yii message/extract @app/config/i18n.php
+```
+
+## XDebug
+download the right .dll file and place it into xampp/php/ext
+https://xdebug.org/wizard
+add to php.ini in xampp configuration
+```ini
+[xdebug]
+zend_extension="C:\xampp\php\ext\php_xdebug-3.1.4-7.4-vc15-x86_64.dll"
+xdebug.mode = debug
+xdebug.start_with_request = yes
+```
+create launch.json in .vscode folder in rephoto root
+```json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Listen for XDebug",
+            "type": "php",
+            "request": "launch",
+            "port": 9003
+        }
+    ]
+}
+```
+
+
+
 Yii 2 Advanced Project Template
 ===============================
 

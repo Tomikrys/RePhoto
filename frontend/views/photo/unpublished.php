@@ -4,10 +4,10 @@
 use yii\widgets\ListView;
 
 ?>
-<section class="container main-info">
+<section class="container main-info white-box">
     <div id="unpublished-photos-wrapper">
         <div class="header">
-            <h2>Nepublikované fotky</h2>
+            <h2><?= Yii::t('app/photo', 'Unpublished photos') ?></h2>
             <!-- <i class="material-icons modal-close-btn">close</i> -->
         </div>
 

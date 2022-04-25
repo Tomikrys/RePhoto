@@ -9,7 +9,7 @@
 <section class="container white-box">
     <div id="edit-photo-wrapper" class="row">
         <div class="header">
-            <h2>Editace informací o fotce</h2>
+            <h2><?= Yii::t('app/photo', 'Edit photo informations') ?></h2>
             <!-- <i class="material-icons modal-close-btn">close</i> -->
             <!-- <i class="material-icons modal-up-btn" style="display: none">keyboard_arrow_up</i> -->
         </div>
@@ -69,7 +69,7 @@
 
 
         <div class="col s12 actions">
-            <a href="<?= \yii\helpers\Url::previous() ?>" class="btn btn-default open-in-modal">Zpět</a>
+            <a href="<?= \yii\helpers\Url::previous() ?>" class="btn btn-default open-in-modal"><?= Yii::t('app/photo', 'Back') ?></a>
 
             <button form="photo-edit-form" class="btn">Uložit</button>
         </div>

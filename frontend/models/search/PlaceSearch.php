@@ -134,7 +134,7 @@ class PlaceSearch extends Place
         $items = [];
         foreach ($places as $place) {
             /* @var $place Place */
-
+// TODO 'newest_photo' => [ 'id' => $place->oldestPhoto->id,
             $items[] = [
                 'id' => $place->id,
                 'name' => $place->name,

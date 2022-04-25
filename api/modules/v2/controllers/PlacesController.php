@@ -211,7 +211,7 @@ class PlacesController extends \api\components\ApiController
 
         $uploadForm = new UploadForm();
         $uploadForm->file = UploadedFile::getInstanceByName('file');
-        $id_photo = $uploadForm->saveFile($place->id, true);
+        $id_photo = $uploadForm->saveFile($place->id, false);
 
         if (!$id_photo) {
             $trans->rollBack();

@@ -22,9 +22,10 @@ $this->bodyClasses[] = 'profile';
                 <hr>
 
                 <ul class="user-navigation">
-                    <li><a href="<?= \yii\helpers\Url::to(['profile']) ?>">Personal info</a></li>
-                    <li><a href="<?= \yii\helpers\Url::to(['uploaded-photos']) ?>">Uploaded photos</a></li>
-                    <li><a href="<?= \yii\helpers\Url::to('/photo/unpublished') ?>">Unpublished photos</a></li>
+                    <li><a href="<?= \yii\helpers\Url::to(['profile']) ?>"><?= Yii::t('app/user', 'Personal info')?></a></li>
+                    <li><a href="<?= \yii\helpers\Url::to(['uploaded-photos']) ?>"><?= Yii::t('app/user', 'Uploaded photos')?></a></li>
+                    <li><a href="<?= \yii\helpers\Url::to('/photo/unpublished') ?>"><?= Yii::t('app/user', 'Unpublished photos')?></a></li>
+                    <li><a href="<?= \yii\helpers\Url::to('/photo/unaligned') ?>"><?= Yii::t('app/user', 'Unaligned photos')?></a></li>
 
                 </ul>
 
@@ -37,7 +38,7 @@ $this->bodyClasses[] = 'profile';
                             'action' => \yii\helpers\Url::to(['logout']),
                         ]); ?>
 
-                        <button>Logout</button>
+                        <button><?= Yii::t('app/user', 'Logout')?></button>
 
                         <?php \yii\bootstrap\ActiveForm::end(); ?>
                     </li>
@@ -48,7 +49,7 @@ $this->bodyClasses[] = 'profile';
 
         <div class="col-md-9">
             <div class="white-box">
-                <h2>Personal info</h2>
+                <h2><?= Yii::t('app/user', 'Personal info')?></h2>
                 <?php $form = \yii\bootstrap\ActiveForm::begin([
                     'id' => 'form-profile',
                 ]); ?>
@@ -63,7 +64,7 @@ $this->bodyClasses[] = 'profile';
                     </div>
                 </div>
 
-                <?= $form->field($user, 'email', [
+                <?= $form->field($user,'email', [
                     'options' => [
                         'class' => 'input-field',
                     ]
@@ -76,7 +77,7 @@ $this->bodyClasses[] = 'profile';
                 ])->passwordInput() ?>
 
                 <div class="actions text-center">
-                    <button class="btn waves-effect waves-light" name="action">Odeslat
+                    <button class="btn waves-effect waves-light" name="action"><?= Yii::t('app/user', 'Send')?>
                         <i class="material-icons right">send</i>
                     </button>
                 </div>

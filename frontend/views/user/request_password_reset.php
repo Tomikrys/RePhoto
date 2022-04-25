@@ -12,18 +12,18 @@ $this->showHeader = false;
     <div id="login-wrapper">
         <a data-pjax="0" class="valign-wrapper back-btn" href="<?= Yii::$app->request->referrer ?? '/' ?>">
             <i class="material-icons">arrow_back</i>
-            Back to page</a>
+            <?= Yii::t('app/user', 'Back to page') ?></a>
         <div class="valign-wrapper welcome-box">
             <div>
-                <p class="welcome">Welcome to</p>
+                <p class="welcome">Welcome to RePhoto</p>
                 <img src="/img/logo.png" alt="rephoto">
-                <p class="text">Take a look how places has changed in time.</p>
+                <p class="text"><?= Yii::t('app/user', 'Take a look how places has changed in time.') ?></p>
             </div>
         </div>
 
         <div class="valign-wrapper login-form">
             <div>
-                <h2 class="green-font">Request new password</h2>
+                <h2 class="green-font"><?= Yii::t('app/user', 'Request new password') ?></h2>
 
                 <?php $form = \yii\bootstrap\ActiveForm::begin([
                     'id' => 'form-request-password-reset',
@@ -40,12 +40,12 @@ $this->showHeader = false;
 
                 <div class="row text-center valign-wrapper">
                     <div class="col s8 no-padding text-left">
-                        <a href="<?= \yii\helpers\Url::to(['/user/login']) ?>">Back to login</a>
+                        <a href="<?= \yii\helpers\Url::to(['/user/login']) ?>"><?= Yii::t('app/user', 'Back to login') ?></a>
                     </div>
 
                     <div class="col s4 no-padding text-right">
                         <button class="btn waves-effect waves-light" type="submit" name="action" data-form="form-request-password-reset">
-                            Send
+                            <?= Yii::t('app/user', 'Send') ?>
                             <i class="material-icons right">send</i>
                         </button>
                     </div>

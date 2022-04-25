@@ -74,6 +74,40 @@ class PhotoSearch extends Photo
         return $dataProvider;
     }
 
+    public function searchUnaligned($params)
+    {
+        $query = Photo::find()
+            ->andWhere([
+                'aligned' => false,
+                'id_user' => Yii::$app->user->id,
+            ]);
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            return $dataProvider;
+        }
+
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'id' => $this->id,
+            'latitude' => $this->latitude,
+            'longitude' => $this->longitude,
+            //'id_user' => $this->id_user,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ]);
+
+        $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'description', $this->description]);
+
+        return $dataProvider;
+    }
+
     public function searchFavorite($id_user)
     {
         $subQuery = PhotoWishList::find()

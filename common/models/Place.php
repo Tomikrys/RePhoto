@@ -92,7 +92,7 @@ class Place extends \yii\db\ActiveRecord
     public function getNewestPhoto()
     {
         return $this->hasOne(Photo::className(), ['id_place' => 'id'])
-            ->andWhere(['visible' => true])
+            ->andWhere(['visible' => 1])
             ->orderBy(['captured_at' => SORT_DESC]);
     }
 
@@ -113,7 +113,8 @@ class Place extends \yii\db\ActiveRecord
     {
         $photos = $this->getPhotos()
             ->with(['user', 'file'])
-            ->andWhere(['visible' => true, 'aligned' => true])
+            ->andWhere(['visible' => 1, 'aligned' => 1])
+            ->orWhere(['id_user' => Yii::$app->user->id])
             ->all();
 
         $result = [];

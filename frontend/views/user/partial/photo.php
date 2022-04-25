@@ -13,6 +13,6 @@
     </div>
     <div class="card-action">
         <a href="<?= \yii\helpers\Url::to(['/place/view', 'id' => $model->id_place]) ?>" class="teal-text"
-           data-pjax="0">detail</a>
+           data-pjax="0"><?= Yii::t('app/user', 'detail')?></a>
     </div>
 </div>

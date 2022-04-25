@@ -7,7 +7,7 @@
 
 <div id="add-photo-wrapper" class="row">
     <div class="header">
-        <h2>Nahrání fotek</h2>
+        <h2><?= Yii::t('app/photo', 'Photo upload') ?></h2>
         <i class="material-icons modal-close-btn">close</i>
     </div>
 
@@ -21,7 +21,7 @@
 
     <div class="actions">
         <a href="<?= \yii\helpers\Url::to(['/photo/unpublished']) ?>"
-           class="btn next-btn open-in-modal">Pokračovat</a>
+           class="btn next-btn open-in-modal"><?= Yii::t('app/photo', 'Continue') ?></a>
     </div>
 </div>
 

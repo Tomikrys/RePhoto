@@ -26,11 +26,11 @@ use yii\helpers\Url;
                 </p>
             </div>
             <div class="card-action">
-                <?= \yii\helpers\Html::a('add to editor', Url::to(['/photo/add-to-editor-list', 'id' => $photo['user']['id']]), [
+                <?= \yii\helpers\Html::a(Yii::t('app/place', 'add to editor'), Url::to(['/photo/add-to-editor-list', 'id' => $photo['user']['id']]), [
                     'class' => 'toggle-editor-btn add-btn',
                     'style' => !$photo['in_editor'] ?: 'display: none;',
                 ]) ?>
-                <?= \yii\helpers\Html::a('remove from editor', Url::to(['/photo/remove-from-editor-list', 'id' => $photo['user']['id']]), [
+                <?= \yii\helpers\Html::a(Yii::t('app/place', 'remove from editor'), Url::to(['/photo/remove-from-editor-list', 'id' => $photo['user']['id']]), [
                     'class' => 'toggle-editor-btn remove-btn',
                     'style' => $photo['in_editor'] ?: 'display: none;',
                 ]) ?>
@@ -39,7 +39,7 @@ use yii\helpers\Url;
                 <div class="card-action">
                     <!-- TODO functionality -->
                     <?php Url::remember(); ?>
-                    <?= \yii\helpers\Html::a('update photo', Url::to(['/photos/' . $photo['id']]), [
+                    <?= \yii\helpers\Html::a(Yii::t('app/place', 'edit photo'), Url::to(['/photos/' . $photo['id']]), [
                         'style' => 'color: orange'
                     ]) ?>
                 </div>
@@ -47,7 +47,7 @@ use yii\helpers\Url;
             <?php if (Yii::$app->user->identity && $photo['user']['id'] == Yii::$app->user->identity->id) { ?>
                 <div class="card-action">
                     <!-- TODO functionality -->
-                    <?= \yii\helpers\Html::a('delete photo', Url::to(['/photo/delete', 'id' => $photo['id']]), [
+                    <?= \yii\helpers\Html::a(Yii::t('app/place', 'delete photo'), Url::to(['/photo/delete', 'id' => $photo['id']]), [
                         'class' => 'toggle-editor-btn',
                         'style' => 'color: red'
                     ]) ?>
