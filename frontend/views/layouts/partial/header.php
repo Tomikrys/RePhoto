@@ -77,9 +77,27 @@ use yii\data\ActiveDataProvider;
 
                     <li class="language-select">
                         <ul class="dropdown-content">
-                            <li><a class="login-btn" href="<?= Url::to(['/user/profile']) ?>"><?= Yii::t('app/menu', 'My profile') ?> <span class="new badge red"><?= $unaligned + $unpublished; ?></span></a></li>
-                            <li><a href="<?= Url::to(['/photo/unpublished']) ?>"><?= Yii::t('app/user', 'Unpublished photos') ?> <span class="new badge red"><?= $unpublished; ?></span></a></li>
-                            <li><a href="<?= Url::to(['/photo/unaligned']) ?>"><?= Yii::t('app/user', 'Unaligned photos') ?> <span class="new badge red"><?= $unaligned; ?></span></a></li>
+                            <li><a class="login-btn" href="<?= Url::to(['/user/profile']) ?>"><?= Yii::t('app/menu', 'My profile') ?>  
+                                <?php
+                                    if ($unpublished + $unaligned != 0) {
+                                        echo "<span class='new badge red'>" . $unpublished + $unaligned . "</span>";
+                                    }
+                                ?>
+                            </a></li>
+                            <li><a href="<?= Url::to(['/photo/unpublished']) ?>"><?= Yii::t('app/user', 'Unpublished photos') ?> 
+                                <?php 
+                                    if ($unpublished != 0) {
+                                        echo "<span class='new badge red'>" . $unpublished . "</span>";
+                                    }
+                                ?>
+                            </a></li>
+                            <li><a href="<?= Url::to(['/photo/unaligned']) ?>"><?= Yii::t('app/user', 'Unaligned photos') ?> 
+                                <?php 
+                                    if ($unaligned != 0) {
+                                        echo "<span class='new badge red'>" . $unaligned . "</span>";
+                                    }
+                                ?>
+                            </a></li>
                             <li>
                                 <?php $form = \yii\bootstrap\ActiveForm::begin([
                                     'id' => 'logout-form',
@@ -92,7 +110,12 @@ use yii\data\ActiveDataProvider;
                             </li>
                         </ul>
                         <a class="dropdown-trigger login-btn">
-                            <?= Yii::t('app/menu', 'My profile') ?> <span class="new badge red"><?= $unpublished + $unaligned; ?></span>
+                            <?= Yii::t('app/menu', 'My profile') ?> 
+                            <?php
+                                if ($unpublished + $unaligned != 0) {
+                                    echo "<span class='new badge red'>" . $unpublished + $unaligned . "</span>";
+                                }
+                            ?>
                             <i class="material-icons right">arrow_drop_down</i>
                         </a>
                     </li>

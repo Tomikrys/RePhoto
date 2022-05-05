@@ -20,7 +20,7 @@ $this->bodyClasses[] = 'error';
             <?= nl2br(Html::encode($message)) ?>
         </p>
 
-        <a class="btn" href="/">Back to homepage</a>
+        <a class="btn" href="/"><?= Yii::t('app/menu', 'Back to homepage') ?></a>
     </div>
 
 </section>

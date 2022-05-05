@@ -21,6 +21,7 @@ return [
     'Log in' => 'Přihlášení',
     'Map' => 'Mapa',
     'My profile' => 'Můj profil',
+    'Back to homepage' => 'Zpět na domovskou stránku',
     'About' => '@@O projektu@@',
     'Take Photo' => '@@Vyfotit rephoto@@',
 ];
