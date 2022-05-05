@@ -129,6 +129,7 @@ class PlaceSearch extends Place
         $query->limit($limit);
         $query->offset(static::PER_PAGE * ($this->page - 1));
 
+        // $places = $query->where(['visible' => true])->all();
         $places = $query->all();
 
         $items = [];
@@ -142,14 +143,14 @@ class PlaceSearch extends Place
                 'longitude' => $place->longitude,
                 'saved_by_logged_user' => $place->placeSavedForLoggedUser !== null,
                 'oldest_photo' => [
-                    'id' => $place->oldestPhoto->id,
-                    'captured_at' => $place->oldestPhoto->captured_at,
-                    'thumbnail_url' => $place->oldestPhoto->getThumbnailUrl(),
+                    'id' => $place->oldestPhoto != null ? $place->oldestPhoto->id : null,
+                    'captured_at' => $place->oldestPhoto != null ? $place->oldestPhoto->captured_at : null,
+                    'thumbnail_url' => $place->oldestPhoto != null ? $place->oldestPhoto->getThumbnailUrl() : null,
                 ],
                 'newest_photo' => [
-                    'id' => $place->oldestPhoto->id,
-                    'captured_at' => $place->newestPhoto->captured_at,
-                    'thumbnail_url' => $place->newestPhoto->getThumbnailUrl(),
+                    'id' => $place->oldestPhoto != null ? $place->oldestPhoto->id : null,
+                    'captured_at' => $place->newestPhoto != null ? $place->newestPhoto->captured_at : null,
+                    'thumbnail_url' => $place->newestPhoto != null ? $place->newestPhoto->getThumbnailUrl() : null,
                 ],
             ];
         }

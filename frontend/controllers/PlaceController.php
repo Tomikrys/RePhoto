@@ -339,6 +339,7 @@ class PlaceController extends FrontendController
 
             if ($place->save()) {
                 \Yii::$app->session->setFlash('success', 'Place successfully changed.');
+                \frontend\models\elasticsearch\Place::refreshData();
                 return $this->redirect(Url::to(['view', 'id' => $place->id]));
             } else {
                 \Yii::$app->session->setFlash('error', 'Error while uploading file.');

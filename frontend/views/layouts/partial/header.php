@@ -80,7 +80,7 @@ use yii\data\ActiveDataProvider;
                             <li><a class="login-btn" href="<?= Url::to(['/user/profile']) ?>"><?= Yii::t('app/menu', 'My profile') ?>  
                                 <?php
                                     if ($unpublished + $unaligned != 0) {
-                                        echo "<span class='new badge red'>" . $unpublished + $unaligned . "</span>";
+                                        echo "<span class='new badge red'>" . ($unpublished + $unaligned) . "</span>";
                                     }
                                 ?>
                             </a></li>
@@ -113,7 +113,7 @@ use yii\data\ActiveDataProvider;
                             <?= Yii::t('app/menu', 'My profile') ?> 
                             <?php
                                 if ($unpublished + $unaligned != 0) {
-                                    echo "<span class='new badge red'>" . $unpublished + $unaligned . "</span>";
+                                    echo "<span class='new badge red'>" . ($unpublished + $unaligned) . "</span>";
                                 }
                             ?>
                             <i class="material-icons right">arrow_drop_down</i>

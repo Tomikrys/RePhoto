@@ -54,7 +54,7 @@ class UploadForm extends Model
                 $photo->id_file = $file->id;
                 $photo->id_place = $id_place;
                 $photo->aligned = (int)$aligned;
-                $photo->visible = 0;
+                $photo->visible = 1;
 
                 if ($photo->save()) {
                     # save file to uploads folder

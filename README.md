@@ -18,6 +18,8 @@ run.bat
     
 je potřeba mít nainstalovaný Python 2.7, PHP 7.1, MariaDB 10.2, Elasticsearch 6.2 a případná rozšíření požadovaná při spuštění: composer install
 
+pokud aplikace háže error přejmenovat \vendor\bower-asset na \vendor\bower
+
 
 
 ## vygenerování souborů pro překlad
