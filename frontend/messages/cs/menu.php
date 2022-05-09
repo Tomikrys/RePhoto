@@ -18,6 +18,7 @@
  */
 return [
     'Add Photo' => 'Nahrát fotku',
+    'Create Place' => 'Přidat místo',
     'Log in' => 'Přihlášení',
     'Map' => 'Mapa',
     'My profile' => 'Můj profil',

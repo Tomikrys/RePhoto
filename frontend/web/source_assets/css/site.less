@@ -136,6 +136,39 @@ nav.nav-extended {
   }
 }
 
+// Responsive navbar
+@media (max-width: 1000px) {
+  #app_name{
+    display: none !important;
+  }
+}
+
+@media (min-width: 900px) {
+  #nav_toggle_button {
+    display: none !important;
+  }
+} 
+
+@media (max-width: 900px) {
+  #nav_toggle_button {
+    display: block !important;
+  }
+  #nav-mobile {
+      display: grid !important;
+      text-align: right;
+      background-color: #009688 !important;
+  }
+  #nav-mobile li.mobile_hidden {
+      display: none !important;
+  }
+  nav {
+    background-color: transparent !important;
+    box-shadow: none;
+  }
+}
+
+
+
 .fixed-side-nav-active {
   nav.nav-extended {
     .nav-wrapper {

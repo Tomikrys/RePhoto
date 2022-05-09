@@ -4,8 +4,8 @@
 use yii\helpers\Url;
 use common\models\Photo;
 use yii\data\ActiveDataProvider;
-
 ?>
+
 <div class="navbar-fixed">
     <nav class="nav-extended">
         <div class="nav-wrapper teal">
@@ -16,7 +16,7 @@ use yii\data\ActiveDataProvider;
                     <a itemprop="item" href="<?= Url::to(['/'], true) ?>" class="logo">
                         <span itemprop="name">
                             <img src="/img/logo_e.png" height="62px">
-                            <span class="hide-on-small-and-down">RePhoto</span>
+                            <span id="app_name">RePhoto</span>
                         </span>
                     </a>
                     <meta itemprop="position" content="1" />
@@ -36,8 +36,11 @@ use yii\data\ActiveDataProvider;
                 <?php endif; ?>
             </ul>
 
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li class="language-select">
+            <div id="nav_toggle_button" class="right">
+                <a class="waves-effect waves-light"  style="padding: 0 15px 0 15px" href="#"><i class="material-icons">menu</i></a>
+            </div>
+            <ul id="nav-mobile" class="right">
+                <li class="language-select mobile mobile_hidden">
                     <ul class="dropdown-content">
                         <li><a href="/cs">Čeština</a></li>
                         <li><a href="/en">English</a></li>
@@ -48,13 +51,14 @@ use yii\data\ActiveDataProvider;
                     </a>
                 </li>
 
-                <li><a class="waves-effect waves-light" href="<?= Url::to(['/map']) ?>"><?= Yii::t('app/menu', 'Map') ?></a>
+                <li class="mobile mobile_hidden">
+                    <a class="waves-effect waves-light" href="<?= Url::to(['/map']) ?>"><?= Yii::t('app/menu', 'Map') ?></a>
                 </li>
 
-                <li>
-                    <a class="waves-effect waves-light" href="<?= Url::to(['/place/create']) ?>"><?= Yii::t('app/menu', 'Add Photo') ?></a>
+                <li class="mobile mobile_hidden">
+                    <a class="waves-effect waves-light" href="<?= Url::to(['/place/create']) ?>"><?= Yii::t('app/menu', 'Create Place') ?></a>
                 </li>
-                <li>
+                <li class="mobile mobile_hidden">
                     <a class="waves-effect waves-light" href="<?= Url::to(['/editor']) ?>">
                         Editor
                         <span id="editor-images" class="new badge" data-badge-caption=""><?= count(Yii::$app->session->get('editor', [])) ?>/2</span>
@@ -75,29 +79,29 @@ use yii\data\ActiveDataProvider;
                     $unpublished = count($unpublishedQuery->all());
                 ?>
 
-                    <li class="language-select">
+                    <li class="language-select mobile mobile_hidden">
                         <ul class="dropdown-content">
-                            <li><a class="login-btn" href="<?= Url::to(['/user/profile']) ?>"><?= Yii::t('app/menu', 'My profile') ?>  
-                                <?php
+                            <li><a class="login-btn" href="<?= Url::to(['/user/profile']) ?>"><?= Yii::t('app/menu', 'My profile') ?>
+                                    <?php
                                     if ($unpublished + $unaligned != 0) {
                                         echo "<span class='new badge red'>" . ($unpublished + $unaligned) . "</span>";
                                     }
-                                ?>
-                            </a></li>
-                            <li><a href="<?= Url::to(['/photo/unpublished']) ?>"><?= Yii::t('app/user', 'Unpublished photos') ?> 
-                                <?php 
+                                    ?>
+                                </a></li>
+                            <li><a href="<?= Url::to(['/photo/unpublished']) ?>"><?= Yii::t('app/user', 'Unpublished photos') ?>
+                                    <?php
                                     if ($unpublished != 0) {
                                         echo "<span class='new badge red'>" . $unpublished . "</span>";
                                     }
-                                ?>
-                            </a></li>
-                            <li><a href="<?= Url::to(['/photo/unaligned']) ?>"><?= Yii::t('app/user', 'Unaligned photos') ?> 
-                                <?php 
+                                    ?>
+                                </a></li>
+                            <li><a href="<?= Url::to(['/photo/unaligned']) ?>"><?= Yii::t('app/user', 'Unaligned photos') ?>
+                                    <?php
                                     if ($unaligned != 0) {
                                         echo "<span class='new badge red'>" . $unaligned . "</span>";
                                     }
-                                ?>
-                            </a></li>
+                                    ?>
+                                </a></li>
                             <li>
                                 <?php $form = \yii\bootstrap\ActiveForm::begin([
                                     'id' => 'logout-form',
@@ -110,17 +114,17 @@ use yii\data\ActiveDataProvider;
                             </li>
                         </ul>
                         <a class="dropdown-trigger login-btn">
-                            <?= Yii::t('app/menu', 'My profile') ?> 
+                            <?= Yii::t('app/menu', 'My profile') ?>
                             <?php
-                                if ($unpublished + $unaligned != 0) {
-                                    echo "<span class='new badge red'>" . ($unpublished + $unaligned) . "</span>";
-                                }
+                            if ($unpublished + $unaligned != 0) {
+                                echo "<span class='new badge red'>" . ($unpublished + $unaligned) . "</span>";
+                            }
                             ?>
                             <i class="material-icons right">arrow_drop_down</i>
                         </a>
                     </li>
                 <?php else : ?>
-                    <li>
+                    <li class="mobile mobile_hidden">
                         <a class="waves-effect waves-light login-btn" href="<?= Url::to(['/user/login']) ?>"><?= Yii::t('app/menu', 'Log in') ?></a>
                     </li>
                 <?php endif; ?>
@@ -132,5 +136,17 @@ use yii\data\ActiveDataProvider;
 <?php $this->registerJs(
     <<<JS
     $(".dropdown-trigger").dropdown();
+
+    var clicked = false;
+    $('#nav_toggle_button').click(
+        function() {
+            if (clicked) {
+                $(this).parent().find('.mobile').addClass('mobile_hidden');
+            } else {
+                $(this).parent().find('.mobile').removeClass('mobile_hidden');
+            }
+            clicked = !clicked;
+        }
+    );
 JS
 );
