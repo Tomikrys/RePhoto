@@ -19,7 +19,7 @@ class UserController extends \api\components\ApiController
             ->andWhere(['email' => $post['email']])
             ->one();
 
-        if (!\Yii::$app->security->validatePassword($post['password'], $user->password_hash)) {
+        if ($user == null || !\Yii::$app->security->validatePassword($post['password'], $user->password_hash)) {
             throw new HttpException(401, 'email or password is incorrect');
         }
 
