@@ -74,7 +74,7 @@ class SiteController extends BackendController
 
         $unverifiedPhotoSearchModel = new PhotoSearch(['unverifiedOnly' => true]);
         $unverifiedPhotoProvider = $unverifiedPhotoSearchModel->search(Yii::$app->request->queryParams);
-        $unverifiedPhotoProvider->pagination->setPageSize(5);
+        $unverifiedPhotoProvider->pagination->setPageSize(30);
 
         return $this->render('index', [
             'previewData' => $previewData,
