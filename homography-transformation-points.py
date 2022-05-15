@@ -4,6 +4,7 @@ import sys
 import json
 import os
 
+
 if (len(sys.argv) != 5):
     print('2 arguments required')
     exit()
@@ -22,13 +23,21 @@ print (dst_pts)
 M, mask = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC, 5.0)
 matchesMask = mask.ravel().tolist()
 print(matchesMask)
-print(M)
+h1, w1, c = img1.shape
+h2, w2, c = img2.shape
+if (h1 < h2 and w1 < w2):
+    M = np.multiply(M, [ [(float(w2)/w1), 1, 1], [1, (float(h2)/h1), 1], [1, 1, 1,] ])
+    
+    im_out = cv2.warpPerspective(img2, M, (img2.shape[1],img2.shape[0]))
 
-im_out = cv2.warpPerspective(img2, M, (img1.shape[1],img1.shape[0]))
+else: 
+    im_out = cv2.warpPerspective(img2, M, (img1.shape[1],img1.shape[0]))
+    
 if not os.path.exists(os.path.dirname(sys.argv[3])):
     os.mkdir(os.path.dirname(sys.argv[3]))
 cv2.imwrite(sys.argv[3], im_out)
 print('true')
+
 
 
     
