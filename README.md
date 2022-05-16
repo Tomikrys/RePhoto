@@ -1,43 +1,61 @@
-Je nutné nainstalovat XAMPP
+# Webová aplikace Rephoto
+https://github.com/Tomikrys/Rephoto
+## Postup zprovoznění
+Nainstalovat XAMPP
 Nainstalovat Composer
 
-mít PHP v PATH
+Přidat složku PHP v instalačním adresáři XAMPP do systémové proměnné prostředí PATH
+    
     C:\xampp\php
-mít Javu jako JAVA_HOME v proměnných
+
+Nainstalovat Javu 8
+Přidat instalační adresář Javy do systémové proměnné prostředí JAVA_HOME
+
     JAVA_HOME - C:\Program Files\Java\jre1.8.0_311
 
-composer install
-php init
-  // V soboru src/common/config/main-local.php změnit přístupy k DB
-php yii migrate
-php yii elasticsearch/init
-
-run-elastic.bat
-  // or run bin/elastic.bat in https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.2.4.zip
-run.bat
+Ve složce s projektem spustit následující příkazy:
     
-je potřeba mít nainstalovaný Python 2.7, PHP 7.1, MariaDB 10.2, Elasticsearch 6.2 a případná rozšíření požadovaná při spuštění: composer install
+    composer install
+    php init
+    // V soboru src/common/config/main-local.php změnit přístupy k DB
+    php yii migrate
+    php yii elasticsearch/init
 
-pokud aplikace háže error přejmenovat \vendor\bower-asset na \vendor\bower
+Spustit Elastic Search:
+
+    run-elastic.bat
+    // run bin/elastic.bat in https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.2.4.zip
+
+    
+je potřeba mít nainstalovaný Python 2.7, PHP 7.1, MariaDB 10.2, Elasticsearch 6.2 a případná rozšíření požadovaná při spuštění: 
+
+    composer install
+
+pokud aplikace vrací error týkající se složky \bower, tak je nutné přejmenovat složku \vendor\bower-asset na \vendor\bower v instalačním adresáři XAMPP
 
 
 
-## vygenerování souborů pro překlad
+## Vygenerování souborů pro překlad
 ```
 yii message/extract @app/config/i18n.php
 ```
 
 ## XDebug
-download the right .dll file and place it into xampp/php/ext
-https://xdebug.org/wizard
-add to php.ini in xampp configuration
+Stáhnout `.dll` knihovnu pomocí nástroje na stránkách https://xdebug.org/wizard a umístit ji do adresáře:
+
+    xampp/php/ext
+
+
+
+Přidat do `php.ini` v instalačním adresáři XAMPP konfiguraci:
 ```ini
 [xdebug]
 zend_extension="C:\xampp\php\ext\php_xdebug-3.1.4-7.4-vc15-x86_64.dll"
 xdebug.mode = debug
 xdebug.start_with_request = yes
 ```
-create launch.json in .vscode folder in rephoto root
+
+Vytvořit `launch.json` ve složce `.vscode`, která je v kořenovém adresáři projketu, s tímto obsahem:
 ```json
 {
     "version": "0.2.0",
@@ -53,8 +71,150 @@ create launch.json in .vscode folder in rephoto root
 ```
 
 
+## Struktura projektu
+Pro přehlednost jsou vypsány pouze důležité soubory a složky. Nejdůležitější položky jsou popsány tučně.
 
-Yii 2 Advanced Project Template
+```
+    RephotoWeb\
+    ├─ #elasticsearch-6.2.4\                        - stažený elastic search engine pro snadné spuštění
+    ├─ .git\                                        - složka s historií vývoje webové aplikace
+    ├─ api\                                         - API ROZHRANÍ APLIKACE
+    │  ├─ config\
+    │  │  └─ main.php
+    │  │ 
+    │  └─ modules\
+    │      ├─ v1\
+    │      │  └─ controllers\
+    │      │  │  ├─ PlacesController.php
+    │      │  │  ├─ TestController.php
+    │      │  │  └─ UserController.php
+    │      │  │
+    │      │  └─ docs\
+    │      │
+    │      └─ v2\                                   - SKRZE TUTO VERZI KOMUNIKUJE MOBILNÍ APLIKACE
+    │          └─ controllers\
+    │          │  ├─ PlacesController.php
+    │          │  ├─ TestController.php
+    │          │  └─ UserController.php
+    │          │
+    │          └─ docs\
+    │  
+    ├─ backend\                                     - ADMIN ROZHRANÍ APLIKACE
+    │  ├─ config\
+    │  │  └─ main.php
+    │  │ 
+    │  ├─ controllers\
+    │  │  ├─ BackendController.php
+    │  │  ├─ PhotoController.php
+    │  │  ├─ PlaceController.php
+    │  │  ├─ SiteController.php
+    │  │  └─ UserConstroller.php
+    │  │  
+    │  ├─ messages\                                 - překlad admin rozhraní
+    │  ├─ models\
+    │  │  ├─ search\
+    │  │  │  ├─ PhotoSearch.php
+    │  │  │  ├─ PlaceSearch.php
+    │  │  │  └─ UserSearch.php
+    │  │  └─ LoginForm.php
+    │  │
+    │  ├─ views\                                    - PHP SOUBORY S POHLEDY PSANÝMI V HTML
+    │  │  ├─ layouts\
+    │  │  ├─ photo\
+    │  │  ├─ place\
+    │  │  ├─ site\
+    │  │  └─ user\
+    │  │    
+    │  └─ web\
+    │      ├─ assets\
+    │      └─ source-assets\
+    │        ├─ css\
+    │        ├─ img\
+    │        └─ js\                                 - SKRIPTY JAVASCRIPTU PRO JEDNOTLIVÉ STRÁNKY V BACKENDU
+    │           ├─ dropzone.js
+    │           ├─ editor.js
+    │           ├─ main.js
+    │           ├─ map.js
+    │           └─ photo-aligner.js
+    │  
+    ├─ common\                                      - SPOLEČNÉ SOUBORY PRO VŠECHNY ODDĚLENÉ ČÁSTI APLIKACE
+    │  ├─ config\
+    │  │  ├─ main.php                               - společná nastavení
+    │  │  └─ main-local.php                         - ZMĚNA PŘÍSTUPOVÝCH ÚDAJŮ K DB                 
+    │  │ 
+    │  ├─ mail\
+    │  │  ├─ passwordResetToken-html.php
+    │  │  └─ passwordResetToken-text.php         
+    │  │ 
+    │  ├─ models\
+    │  │  ├─ File.php
+    │  │  ├─ LoginForm.php
+    │  │  ├─ Photo.php
+    │  │  ├─ PhotoEdited.php
+    │  │  ├─ PhotoWishList.php
+    │  │  ├─ Place.php
+    │  │  ├─ PlaceSaved.php
+    │  │  ├─ Rephoto.php
+    │  │  ├─ SingupForm.php
+    │  │  └─ User.php
+    │  
+    ├─ frontend\                                    - FRONTEND APLIKACE
+    │  ├─ assets\                                   - mapování js, css a dlaších závislostí
+    │  ├─ config\
+    │  │  └─ main.php
+    │  │ 
+    │  ├─ controllers\
+    │  │  ├─ EditorController.php
+    │  │  ├─ MapController.php
+    │  │  ├─ PhotoController.php
+    │  │  ├─ PlaceController.php
+    │  │  ├─ SiteController.php
+    │  │  ├─ SystemController.php
+    │  │  ├─ TakephotoController.php
+    │  │  └─ UserController.php
+    │  │ 
+    │  ├─ messages\                                  - překlady frontendu 
+    │  ├─ models\
+    │  │  ├─ elasticsearch\
+    │  │  │  └─ Place.php
+    │  │  │ 
+    │  │  ├─ search\
+    │  │  │  ├─ PhotoSearch.php
+    │  │  │  └─ PlaceSearch.php
+    │  │  │ 
+    │  │  ├─ ContactForm.php
+    │  │  ├─ PasswordResetRequestForm.php
+    │  │  ├─ PlaceFilter.php
+    │  │  ├─ ResetPasswordForm.php
+    │  │  ├─ SingupForm.php
+    │  │  └─ UploadForm.php
+    │  │ 
+    │  ├─ views\                                    - PHP SOUBORY S POHLEDY PSANÝMI V HTML
+    │  └─ web\
+    │     └─ source-assets\
+    │        ├─ css\
+    │        ├─ img\
+    │        └─ js\                                 - SKRIPTY JAVASCRIPTU PRO JEDNOTLIVÉ STRÁNKY VE FRONTENDU
+    │           ├─ dropzone.js
+    │           ├─ editor.js
+    │           ├─ main.js
+    │           ├─ map.js
+    │           └─ photo-aligner.js
+    │        
+    │  
+    ├─ python27\                                    - lokální python pro snadný přesun na jiný systém
+    ├─ uploads\                                     - SLOŽKA S NAHRANÝMI FOROGRAFIEMI
+    ├─ homography-points.py                         - skripty pro deformaci refotografie pomocí homografie
+    ├─ homography-transformation.py
+    ├─ homography-transformation-points.py
+    ├─ README.md
+    ├─ run - backend.bat                            - spuštění backendu přes yii server (nepoužívat, používat XAMPP)
+    ├─ run.bat                                      - spuštění frontendu přes yii server (nepoužívat, používat XAMPP)
+    └─ run-elastic.bat                              - ZÁSTUPCE PRO SPUŠTĚNÍ ELASTIC SEARCH ENGINU
+```
+
+
+Oficiální popis Yii 2 Advanced Project Template
 ===============================
 
 Yii 2 Advanced Project Template is a skeleton [Yii 2](http://www.yiiframework.com/) application best for
