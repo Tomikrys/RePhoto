@@ -89,7 +89,7 @@ Pro přehlednost jsou vypsány pouze důležité soubory a složky. Nejdůležit
     │      │  │  ├─ TestController.php
     │      │  │  └─ UserController.php
     │      │  │
-    │      │  └─ docs\
+    │      │  └─ docs\                              - dokumentace API v1
     │      │
     │      └─ v2\                                   - SKRZE TUTO VERZI KOMUNIKUJE MOBILNÍ APLIKACE
     │          └─ controllers\
@@ -97,7 +97,7 @@ Pro přehlednost jsou vypsány pouze důležité soubory a složky. Nejdůležit
     │          │  ├─ TestController.php
     │          │  └─ UserController.php
     │          │
-    │          └─ docs\
+    │          └─ docs\                             - dokumentace API v2
     │  
     ├─ backend\                                     - ADMIN ROZHRANÍ APLIKACE
     │  ├─ config\
@@ -146,18 +146,20 @@ Pro přehlednost jsou vypsány pouze důležité soubory a složky. Nejdůležit
     │  │  ├─ passwordResetToken-html.php
     │  │  └─ passwordResetToken-text.php         
     │  │ 
-    │  ├─ models\
-    │  │  ├─ File.php
-    │  │  ├─ LoginForm.php
-    │  │  ├─ Photo.php
-    │  │  ├─ PhotoEdited.php
-    │  │  ├─ PhotoWishList.php
-    │  │  ├─ Place.php
-    │  │  ├─ PlaceSaved.php
-    │  │  ├─ Rephoto.php
-    │  │  ├─ SingupForm.php
-    │  │  └─ User.php
+    │  └─ models\
+    │     ├─ File.php
+    │     ├─ LoginForm.php
+    │     ├─ Photo.php
+    │     ├─ PhotoEdited.php
+    │     ├─ PhotoWishList.php
+    │     ├─ Place.php
+    │     ├─ PlaceSaved.php
+    │     ├─ Rephoto.php
+    │     ├─ SingupForm.php
+    │     └─ User.php
     │  
+    │  
+    ├─ doc\                                         - dokumentace projektu Martina Sikory
     ├─ frontend\                                    - FRONTEND APLIKACE
     │  ├─ assets\                                   - mapování js, css a dlaších závislostí
     │  ├─ config\

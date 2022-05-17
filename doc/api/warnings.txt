@@ -1,0 +1,171 @@
+Array
+(
+    [0] => Array
+        (
+            [line] => 5
+            [file] => api\components\ApiController.php
+            [message] => No docblock for element 'api\components\ApiController'
+        )
+
+    [1] => Array
+        (
+            [line] => 5
+            [file] => api\modules\v1\Module.php
+            [message] => No docblock for element 'api\modules\v1\Module'
+        )
+
+    [2] => Array
+        (
+            [line] => 5
+            [file] => api\modules\v1\controllers\TestController.php
+            [message] => No docblock for element 'api\modules\v1\controllers\TestController'
+        )
+
+    [3] => Array
+        (
+            [line] => 7
+            [file] => api\modules\v1\controllers\TestController.php
+            [message] => No docblock for element 'actionIndex'
+        )
+
+    [4] => Array
+        (
+            [line] => 12
+            [file] => api\modules\v1\controllers\UserController.php
+            [message] => No docblock for element 'api\modules\v1\controllers\UserController'
+        )
+
+    [5] => Array
+        (
+            [line] => 14
+            [file] => api\modules\v1\controllers\UserController.php
+            [message] => No docblock for element 'actionLogin'
+        )
+
+    [6] => Array
+        (
+            [line] => 37
+            [file] => api\modules\v1\controllers\UserController.php
+            [message] => No docblock for element 'actionLogout'
+        )
+
+    [7] => Array
+        (
+            [line] => 55
+            [file] => api\modules\v1\controllers\UserController.php
+            [message] => No docblock for element 'actionRequestPasswordReset'
+        )
+
+    [8] => Array
+        (
+            [line] => 74
+            [file] => api\modules\v1\controllers\UserController.php
+            [message] => No docblock for element 'actionIndex'
+        )
+
+    [9] => Array
+        (
+            [line] => 90
+            [file] => api\modules\v1\controllers\UserController.php
+            [message] => No docblock for element 'create'
+        )
+
+    [10] => Array
+        (
+            [line] => 105
+            [file] => api\modules\v1\controllers\UserController.php
+            [message] => No docblock for element 'update'
+        )
+
+    [11] => Array
+        (
+            [line] => 132
+            [file] => api\modules\v1\controllers\UserController.php
+            [message] => No docblock for element 'getStatus'
+        )
+
+    [12] => Array
+        (
+            [line] => 5
+            [file] => api\modules\v2\Module.php
+            [message] => No docblock for element 'api\modules\v2\Module'
+        )
+
+    [13] => Array
+        (
+            [line] => 5
+            [file] => api\modules\v2\controllers\TestController.php
+            [message] => No docblock for element 'api\modules\v2\controllers\TestController'
+        )
+
+    [14] => Array
+        (
+            [line] => 7
+            [file] => api\modules\v2\controllers\TestController.php
+            [message] => No docblock for element 'actionIndex'
+        )
+
+    [15] => Array
+        (
+            [line] => 12
+            [file] => api\modules\v2\controllers\UserController.php
+            [message] => No docblock for element 'api\modules\v2\controllers\UserController'
+        )
+
+    [16] => Array
+        (
+            [line] => 14
+            [file] => api\modules\v2\controllers\UserController.php
+            [message] => No docblock for element 'actionLogin'
+        )
+
+    [17] => Array
+        (
+            [line] => 34
+            [file] => api\modules\v2\controllers\UserController.php
+            [message] => No docblock for element 'actionLogout'
+        )
+
+    [18] => Array
+        (
+            [line] => 51
+            [file] => api\modules\v2\controllers\UserController.php
+            [message] => No docblock for element 'actionCheckLogin'
+        )
+
+    [19] => Array
+        (
+            [line] => 63
+            [file] => api\modules\v2\controllers\UserController.php
+            [message] => No docblock for element 'actionRequestPasswordReset'
+        )
+
+    [20] => Array
+        (
+            [line] => 82
+            [file] => api\modules\v2\controllers\UserController.php
+            [message] => No docblock for element 'actionIndex'
+        )
+
+    [21] => Array
+        (
+            [line] => 98
+            [file] => api\modules\v2\controllers\UserController.php
+            [message] => No docblock for element 'create'
+        )
+
+    [22] => Array
+        (
+            [line] => 113
+            [file] => api\modules\v2\controllers\UserController.php
+            [message] => No docblock for element 'update'
+        )
+
+    [23] => Array
+        (
+            [line] => 140
+            [file] => api\modules\v2\controllers\UserController.php
+            [message] => No docblock for element 'getStatus'
+        )
+
+)

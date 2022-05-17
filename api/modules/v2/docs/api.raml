@@ -1,7 +1,7 @@
 #%RAML 1.0
 ---
 title: Rephoto
-baseUri: https://rephoto.skrai.cz/api/v2
+baseUri: https://rephoto.cz/api/v2
 
 types:
   PlacePhoto:
@@ -61,10 +61,10 @@ types:
             required: true
         example: |
           {
-            "email": "sikora@skrai.cz",
+            "email": "tomikrys@seznam.cz",
             "password": "IOJdfOJn8asd76",
-            "first_name": "Martin",
-            "last_name": "Sikora"
+            "first_name": "Tomáš",
+            "last_name": "Ryšavý"
           }
 
     responses:
@@ -101,9 +101,9 @@ types:
                 "data": {
                     "id": 1,
                     "access_token": "L1VSVd9TpGXr4JepZAov61SAEJZmI4ss",
-                    "first_name": "Martin",
-                    "last_name": "Sikora",
-                    "email": "sikora@skrai.cz
+                    "first_name": "Tomáš",
+                    "last_name": "Ryšavý",
+                    "email": "tomikrys@seznam.cz"
                   }
               }
       500:
@@ -150,10 +150,10 @@ types:
             required: false
         example: |
           {
-            "email": "sikora@skrai.cz",
+            "email": "tomikrys@seznam.cz",
             "password": "IOJdfOJn8asd76",
-            "first_name": "Martin",
-            "last_name": "Sikora"
+            "first_name": "Tomáš",
+            "last_name": "Ryšavý"
           }
 
     responses:
@@ -190,9 +190,9 @@ types:
                 "data": {
                     "id": 1
                     "access_token": "L1VSVd9TpGXr4JepZAov61SAEJZmI4ss",
-                    "first_name": "Martin",
-                    "last_name": "Sikora",
-                    "email": "sikora@skrai.cz
+                    "first_name": "Tomáš",
+                    "last_name": "Ryšavý",
+                    "email": "tomikrys@seznam.cz,
                   }
               }
       401:
@@ -284,9 +284,9 @@ types:
                 "data": {
                     "id": 1
                     "access_token": "L1VSVd9TpGXr4JepZAov61SAEJZmI4ss",
-                    "first_name": "Martin",
-                    "last_name": "Sikora",
-                    "email": "sikora@skrai.cz
+                    "first_name": "Tomáš",
+                    "last_name": "Ryšavý",
+                    "email": "tomikrys@seznam.cz
                   }
               }
       401:
@@ -354,7 +354,7 @@ types:
               required: true
           example: |
             {
-              "email": "sikora@skrai.cz",
+              "email": "tomikrys@seznam.cz",
               "password": "IOJdfOJn8asd76"
             }
 
@@ -392,9 +392,9 @@ types:
                   "data": {
                       "id": 1,
                       "access_token": "L1VSVd9TpGXr4JepZAov61SAEJZmI4ss",
-                      "first_name": "Martin",
-                      "last_name": "Sikora",
-                      "email": "sikora@skrai.cz
+                      "first_name": "Tomáš",
+                      "last_name": "Ryšavý",
+                      "email": "tomikrys@seznam.cz
                     }
                 }
         401:
@@ -412,6 +412,93 @@ types:
                 {
                   "status": false,
                   "error": "Invalid email or password."
+                }
+        500:
+          body:
+            application/json:
+              type: object
+              properties:
+                status:
+                  type: boolean
+                  description: stav požadavku
+                error:
+                  description: chybová hláška
+                  type: string
+              example: |
+                {
+                  "status": false,
+                  "error": "Internal server error."
+                }
+  /check-login:
+    post:
+      description: "Ověření platnosti tokenu"
+      body:
+        application/json:
+          type: object
+          properties:
+            access_token:
+              description: Přístupový token
+              type: string
+              required: true
+          example: |
+            {
+              "access-token": "L1VSVd9TpGXr4JepZAov61SAEJZmI4ss"
+            }
+
+      responses:
+        200:
+          body:
+            application/json:
+              type: object
+              properties:
+                status:
+                  type: boolean
+                  description: stav požadavku
+                data:
+                  description: data přihlášeného uživatele
+                  type: object
+                  properties:
+                    id:
+                      description: identifikace uživatele
+                      type: integer
+                    access_token:
+                      description: přístupový token
+                      type: string
+                    first_name:
+                      description: jméno
+                      type: string
+                    last_name:
+                      description: příjmení
+                      type: string
+                    email:
+                      description: email
+                      type: string
+              example: |
+                {
+                  "status": true,
+                  "data": {
+                      "id": 1,
+                      "access_token": "L1VSVd9TpGXr4JepZAov61SAEJZmI4ss",
+                      "first_name": "Tomáš",
+                      "last_name": "Ryšavý",
+                      "email": "tomikrys@seznam.cz
+                    }
+                }
+        401:
+          body:
+            application/json:
+              type: object
+              properties:
+                status:
+                  type: boolean
+                  description: stav požadavku
+                error:
+                  description: chybová hláška
+                  type: string
+              example: |
+                {
+                  "status": false,
+                  "error": "Token is not valid."
                 }
         500:
           body:
@@ -510,7 +597,7 @@ types:
               required: false
           example: |
             {
-              "email": "sikora@skrai.cz"
+              "email": "tomikrys@seznam.cz"
             }
       responses:
         200:
@@ -570,12 +657,9 @@ types:
                   longitude:
                     description: Nadmořská šířka
                     type: string
-                  oldestPhoto:
-                    description: nejstaší fotografie
-                    type: PlacePhoto
-                  newestPhoto:
-                    description: nejnovětší refotografie
-                    type: PlacePhoto
+                  photo:
+                    description: fotografie náležící místu
+                    type: Array(PlacePhoto)
             example: |
               {
                 "status": true,
@@ -585,7 +669,7 @@ types:
                       "name": "Place 0",
                       "latitude": "48.93347241",
                       "longitude": "11.81011800",
-                      "oldestPhoto": {
+                      "photos": {
                           "id": "1",
                           "captured_at": "1965-02-01 00:00:00",
                           "id_file": "1",
@@ -593,20 +677,12 @@ types:
                           "id_user": "1",
                           "user": {
                               "id": "1",
-                              "first_name": "Martin1",
-                              "last_name": "Sikora2"
-                          }
-                      },
-                      "newestPhoto": {
-                          "id": "3",
-                          "captured_at": "2018-05-22 22:58:03",
-                          "id_file": "3",
-                          "id_place": "1",
-                          "id_user": "1",
-                          "user": {
+                              "first_name": "Tomáš",
+                              "last_name": "Ryšavý"
+                          }, 
+                          "file": {
                               "id": "1",
-                              "first_name": "Martin1",
-                              "last_name": "Sikora2"
+                              "extension": "jpg"
                           }
                       }
                   }

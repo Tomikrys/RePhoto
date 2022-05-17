@@ -21,7 +21,8 @@
         "dmstr/yii2-adminlte-asset": "^2.1",
         "kartik-v/yii2-widget-datepicker": "@dev",
         "johnson/yii2-webcam": "*",
-        "ext-gd": "*"
+        "ext-gd": "*",
+        "yiisoft/yii2-apidoc": "~2.1.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
