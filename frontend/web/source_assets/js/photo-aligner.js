@@ -48,7 +48,7 @@ function PhotoAligner(points) {
 
     this.skip_mouseup = false;
 
-    $(document).on("mousedown", '.point', function (e) {
+    $(document).on("touchstart mousedown", '.point', function (e) {
         e.preventDefault();
         const d = new Date();
         let now = d.getTime();
