@@ -52,6 +52,10 @@ class PlaceController extends FrontendController
         $photos = $place->getPhotosStructure();
         $photosEdited = $place->getPhotosEditedStructure();
 
+        if ($photos == null) {
+            throw new NotFoundHttpException('Place not exists');
+        }
+
         return $this->render('view', [
             'place' => $place,
             'photos' => $photos,

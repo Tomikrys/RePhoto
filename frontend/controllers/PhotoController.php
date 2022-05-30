@@ -28,7 +28,7 @@ class PhotoController extends FrontendController
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['detail', 'add-to-editor-list', 'remove-from-editor-list'],
+                        'actions' => ['delete' => ['POST'], 'detail', 'add-to-editor-list', 'remove-from-editor-list'],
                     ],
                     [
                         'allow' => true,
@@ -165,9 +165,15 @@ class PhotoController extends FrontendController
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $photo = Photo::findOne($id);
+        $loggedUser = \Yii::$app->user;
+        if ($loggedUser->id !== $photo->id_user) {
+            throw new ForbiddenHttpException('Nemáte oprávnění editovat tuto fotografii.');
+        }
+        $photo->delete();
+        \frontend\models\elasticsearch\Place::refreshData();
 
-        return $this->redirect(['index']);
+        return $this->redirect(\Yii::$app->request->referrer ?: \Yii::$app->homeUrl);
     }
 
     /**
