@@ -20,25 +20,40 @@ src_pts = np.float32(points['new']).reshape(-1,1,2)
 print (src_pts)
 print (dst_pts)
 
-M, mask = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC, 5.0)
-matchesMask = mask.ravel().tolist()
-print(matchesMask)
 h1, w1, c = img1.shape
 h2, w2, c = img2.shape
-if (h1 < h2 and w1 < w2):
-    M = np.multiply(M, [ [(float(w2)/w1), 1, 1], [1, (float(h2)/h1), 1], [1, 1, 1,] ])
-    
-    im_out = cv2.warpPerspective(img2, M, (img2.shape[1],img2.shape[0]))
 
-else: 
-    im_out = cv2.warpPerspective(img2, M, (img1.shape[1],img1.shape[0]))
+# scale the dst_point to resolution of the image we will be warping
+if (h1 < h2 and w1 < w2):
+    for i in range(len(dst_pts)):
+        print(dst_pts[i][0])
+        print((float(w2)/w1))
+        dst_pts[i][0][0] = dst_pts[i][0][0] * (float(w2)/w1)
+        dst_pts[i][0][1] = dst_pts[i][0][1] * (float(h2)/h1) 
+        print(dst_pts[i][0])
     
+
+M, mask = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC, 5.0)
+print(M)
+# if (h1 < h2 and w1 < w2):
+# if (False):
+#     M = np.multiply(M, [ [(float(w2)/w1), 1, 1], [1, (float(h2)/h1), 1], [1, 1, 1,] ])
+#     print(M)
+#     print(w2, w1)
+#     print((float(w2)/float(w1)))
+#     im_out = cv2.warpPerspective(img2, M, (img2.shape[1],img2.shape[0]))
+#     if not os.path.exists(os.path.dirname(sys.argv[3])):
+#         os.mkdir(os.path.dirname(sys.argv[3]))
+#     cv2.imwrite(sys.argv[3], im_out)
+#     print('true')
+
+# else: 
+
+im_out = cv2.warpPerspective(img2, M, (img2.shape[1],img2.shape[0]))
 if not os.path.exists(os.path.dirname(sys.argv[3])):
     os.mkdir(os.path.dirname(sys.argv[3]))
 cv2.imwrite(sys.argv[3], im_out)
 print('true')
-
-
 
     
 # matchesMask = mask.ravel().tolist()

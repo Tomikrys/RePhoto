@@ -37,7 +37,6 @@ use yii\helpers\Url;
             </div>
             <?php if (Yii::$app->user->identity && $photo['user']['id'] == Yii::$app->user->identity->id) { ?>
                 <div class="card-action">
-                    <!-- TODO functionality -->
                     <?php Url::remember(); ?>
                     <?= \yii\helpers\Html::a(Yii::t('app/place', 'edit photo'), Url::to(['/photos/' . $photo['id']]), [
                         'style' => 'color: orange'
@@ -46,10 +45,11 @@ use yii\helpers\Url;
             <?php } ?>
             <?php if (Yii::$app->user->identity && $photo['user']['id'] == Yii::$app->user->identity->id) { ?>
                 <div class="card-action">
-                    <!-- TODO functionality -->
                     <?= \yii\helpers\Html::a(Yii::t('app/place', 'delete photo'), Url::to(['/photo/delete', 'id' => $photo['id']]), [
-                        'class' => 'toggle-editor-btn',
-                        'style' => 'color: red'
+                        'style' => 'color: red',
+                        'data-confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
+                        'data-method' => 'post',
+                        'data-pjax' => '0',
                     ]) ?>
                 </div>
             <?php } ?>

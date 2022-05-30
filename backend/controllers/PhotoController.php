@@ -122,7 +122,7 @@ class PhotoController extends BackendController
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(Yii::$app->request->referrer ?? '/index');
     }
 
     public function actionVerify(int $id)
