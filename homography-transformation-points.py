@@ -22,6 +22,8 @@ print (dst_pts)
 
 h1, w1, c = img1.shape
 h2, w2, c = img2.shape
+out_img_h = h1
+out_img_w = w1
 
 # scale the dst_point to resolution of the image we will be warping
 if (h1 < h2 and w1 < w2):
@@ -31,6 +33,8 @@ if (h1 < h2 and w1 < w2):
         dst_pts[i][0][0] = dst_pts[i][0][0] * (float(w2)/w1)
         dst_pts[i][0][1] = dst_pts[i][0][1] * (float(h2)/h1) 
         print(dst_pts[i][0])
+        out_img_h = h2
+        out_img_w = w2
     
 
 M, mask = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC, 5.0)
@@ -49,7 +53,7 @@ print(M)
 
 # else: 
 
-im_out = cv2.warpPerspective(img2, M, (img2.shape[1],img2.shape[0]))
+im_out = cv2.warpPerspective(img2, M, (out_img_w,out_img_h))
 if not os.path.exists(os.path.dirname(sys.argv[3])):
     os.mkdir(os.path.dirname(sys.argv[3]))
 cv2.imwrite(sys.argv[3], im_out)

@@ -46,6 +46,7 @@ $this->bodyClasses[] = 'place-add-photo';
         <a href="<?= \yii\helpers\Url::to(['/place/upload-photo', 'id_place' => $place->id]) ?>" class="btn btn-back">
             <?= Yii::t('app/place', 'Upload another photo') ?>
         </a>
+        <button class="btn waves-effect waves-light skip-btn"><?= Yii::t('app/place', 'Skip') ?></button>
         <button class="btn waves-effect waves-light align-btn"><?= Yii::t('app/place', 'Align') ?></button>
     </div>
 
@@ -185,7 +186,7 @@ $this->registerJs(
     $('.align-btn').on('click', function(){
         var points = aligner.getOriginalPoints();
         // console.log($alignUrl)
-        
+        console.log(points);
         if (points.old.length < 4){
             alert('Set minimal 4 points.');
         } else {
@@ -193,6 +194,20 @@ $this->registerJs(
                 window.location.href = url;
             });   
         }
+    });
+    
+    $('.skip-btn').on('click', function(){
+        var new_im = document.getElementById("new-photo");
+        var old_im = document.getElementById("old-photo");
+        var points = {
+            old: [['0','0'], [old_im.naturalWidth.toString(),'0'], [old_im.naturalWidth.toString(),old_im.naturalHeight.toString()], ['0',old_im.naturalHeight.toString()]], 
+            new: [['0','0'], [new_im.naturalWidth.toString(),'0'], [new_im.naturalWidth.toString(),new_im.naturalHeight.toString()], ['0',new_im.naturalHeight.toString()]]
+        }  
+        console.log(points);
+
+        $.post('{$alignUrl}', {points: points}, function(url){
+            window.location.href = url;
+        });   
     });
     
     aligner = new PhotoAligner({$points});

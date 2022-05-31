@@ -19,6 +19,7 @@
 return [
     'Add new rephoto' => 'Přidat refotografii',
     'Align' => 'Zarovnat',
+    'Skip' => 'Přeskočit',
     'Author' => 'Autor',
     'Captured' => 'Zachyceno',
     'Confirm' => 'Potvrdit',
